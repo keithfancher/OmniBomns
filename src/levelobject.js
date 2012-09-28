@@ -79,11 +79,34 @@
    */
   b.PowerUp.prototype.draw = function(context) {
     // convert from tile coords to pixel coords
-    var pixelX = this.col * b.TILE_SIZE + 3; // +-3 centers text better
-    var pixelY = this.row * b.TILE_SIZE - 3; // obviously will remove later
+    var pixelX = this.col * b.TILE_SIZE + 4;
+    var pixelY = this.row * b.TILE_SIZE - 3;
     context.font = '15px serif';
     context.fillStyle = 'green';
     context.fillText('↑', pixelX, pixelY); // hopefully you like unicode!
+  };
+
+
+  /*
+   * PowerDown! Inherits from LevelObject.
+   */
+  b.PowerDown = function(row, col) {
+    this.row = row;
+    this.col = col;
+    this.solid = false;
+  };
+  b.PowerDown.prototype = new b.LevelObject(); // inherit!
+
+  /*
+   * Draw the PowerDown, yo.
+   */
+  b.PowerDown.prototype.draw = function(context) {
+    // convert from tile coords to pixel coords
+    var pixelX = this.col * b.TILE_SIZE + 4;
+    var pixelY = this.row * b.TILE_SIZE - 3;
+    context.font = '15px serif';
+    context.fillStyle = 'red';
+    context.fillText('↓', pixelX, pixelY); // hopefully you like unicode!
   };
 
 })(window.bomns = window.bomns || {});

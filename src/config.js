@@ -17,5 +17,6 @@
   b.NUM_WALLS = 100;
   b.NUM_INVULNS = 10;
   b.NUM_POWERUPS = 30;
+  b.NUM_POWERDOWNS = 30;
 
 })(window.bomns = window.bomns || {});

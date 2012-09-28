@@ -55,6 +55,11 @@
     this.insertRandomObjects(b.NUM_POWERUPS, function(row, col) {
       return new b.PowerUp(row, col);
     });
+
+    // powerdowns
+    this.insertRandomObjects(b.NUM_POWERDOWNS, function(row, col) {
+      return new b.PowerDown(row, col);
+    });
   };
 
 
