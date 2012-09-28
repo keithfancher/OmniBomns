@@ -93,6 +93,12 @@
       if(!level.tiles[this.row][this.col + 1].solid) {
         this.col++;
       }
+      // if it *is* solid, see if it's a warp
+      else {
+        if(level.tiles[this.row][this.col + 1] instanceof b.Warp) {
+          this.warp(level);
+        }
+      }
     }
   };
 
@@ -102,6 +108,12 @@
       // only move if destination is not filled with solid object
       if(!level.tiles[this.row][this.col - 1].solid) {
         this.col--;
+      }
+      // if it *is* solid, see if it's a warp
+      else {
+        if(level.tiles[this.row][this.col - 1] instanceof b.Warp) {
+          this.warp(level);
+        }
       }
     }
   };
@@ -113,6 +125,12 @@
       if(!level.tiles[this.row - 1][this.col].solid) {
         this.row--;
       }
+      // if it *is* solid, see if it's a warp
+      else {
+        if(level.tiles[this.row - 1][this.col] instanceof b.Warp) {
+          this.warp(level);
+        }
+      }
     }
   };
 
@@ -123,7 +141,37 @@
       if(!level.tiles[this.row + 1][this.col].solid) {
         this.row++;
       }
+      // if it *is* solid, see if it's a warp
+      else {
+        if(level.tiles[this.row + 1][this.col] instanceof b.Warp) {
+          this.warp(level);
+        }
+      }
     }
+  };
+
+
+  /*
+   * Warp the player to a random part of the level.
+   */
+  b.Player.prototype.warp = function(level) {
+    var warpRow;
+    var warpCol;
+
+    // keep looping until the destination is *not* a solid object
+    while(666) {
+      warpRow = b.randomInt(0, b.LEVEL_HEIGHT - 1);
+      warpCol = b.randomInt(0, b.LEVEL_WIDTH - 1);
+      var destTile = level.tiles[warpRow][warpCol];
+      if(!destTile.solid) {
+        break;
+      }
+    }
+
+    // TODO: pick up the powerup/powerdown we land on
+
+    this.row = warpRow;
+    this.col = warpCol;
   };
 
 
