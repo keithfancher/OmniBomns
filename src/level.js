@@ -65,6 +65,16 @@
     this.insertRandomObjects(b.NUM_HEALTH, function(row, col) {
       return new b.Health(row, col);
     });
+
+    // bomns
+    this.insertRandomObjects(b.NUM_BOMNS, function(row, col) {
+      return new b.Bomn(row, col);
+    });
+
+    // warps
+    this.insertRandomObjects(b.NUM_WARPS, function(row, col) {
+      return new b.Warp(row, col);
+    });
   };
 
 

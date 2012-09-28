@@ -19,5 +19,7 @@
   b.NUM_POWERUPS = 30;
   b.NUM_POWERDOWNS = 30;
   b.NUM_HEALTH = 30;
+  b.NUM_BOMNS = 20;
+  b.NUM_WARPS = 3;
 
 })(window.bomns = window.bomns || {});
