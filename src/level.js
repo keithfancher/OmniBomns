@@ -24,22 +24,32 @@
 
 
   /*
+   * Inserts given number of random objects into level. func should take a row
+   * and column and return a new instance of whatever object you want to
+   * insert.
+   */
+  b.Level.prototype.insertRandomObjects = function(num, func) {
+    for(var i = 0; i < num; i++) {
+      var row = b.randomInt(0, b.LEVEL_HEIGHT - 1);
+      var col = b.randomInt(0, b.LEVEL_WIDTH - 1);
+      this.tiles[row][col] = func(row, col);
+    }
+  };
+
+
+  /*
    * Fill the level with objects.
    */
   b.Level.prototype.fill = function() {
     // insert walls
-    for(var i = 0; i < b.NUM_WALLS; i++) {
-      var row = b.randomInt(0, b.LEVEL_HEIGHT - 1);
-      var col = b.randomInt(0, b.LEVEL_WIDTH - 1);
-      this.tiles[row][col] = new b.Wall(row, col);
-    }
+    this.insertRandomObjects(b.NUM_WALLS, function(row, col) {
+      return new b.Wall(row, col);
+    });
 
     // insert invulnerabilities
-    for(var i = 0; i < b.NUM_INVULNS; i++) {
-      var row = b.randomInt(0, b.LEVEL_HEIGHT - 1);
-      var col = b.randomInt(0, b.LEVEL_WIDTH - 1);
-      this.tiles[row][col] = new b.Invuln(row, col);
-    }
+    this.insertRandomObjects(b.NUM_INVULNS, function(row, col) {
+      return new b.Invuln(row, col);
+    });
   };
 
 
