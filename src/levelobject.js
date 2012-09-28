@@ -1,4 +1,4 @@
-(function(window, b, undefined) {
+(function(b, undefined) {
   'use strict';
 
   /*
@@ -63,4 +63,4 @@
     context.fillText('!!', pixelX, pixelY);
   };
 
-})(window, window.bomns = window.bomns || {});
+})(window.bomns = window.bomns || {});

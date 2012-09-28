@@ -1,4 +1,4 @@
-(function(window, b, undefined) {
+(function(b, undefined) {
   'use strict';
 
   // some useful "constants"
@@ -17,4 +17,4 @@
   b.NUM_WALLS = 100;
   b.NUM_INVULNS = 10;
 
-})(window, window.bomns = window.bomns || {});
+})(window.bomns = window.bomns || {});

@@ -1,4 +1,4 @@
-(function(window, b, undefined) {
+(function(b, undefined) {
   'use strict';
 
   var P1_COLOR = 'red';
@@ -144,4 +144,4 @@
     context.stroke();
   };
 
-})(window, window.bomns = window.bomns || {});
+})(window.bomns = window.bomns || {});

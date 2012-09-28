@@ -1,4 +1,4 @@
-(function(window, b, undefined) {
+(function(b, undefined) {
   'use strict';
 
   /*
@@ -64,4 +64,4 @@
     }
   };
 
-})(window, window.bomns = window.bomns || {});
+})(window.bomns = window.bomns || {});

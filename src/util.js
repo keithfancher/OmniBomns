@@ -1,4 +1,4 @@
-(function(window, b, undefined) {
+(function(b, undefined) {
   'use strict';
 
   /*
@@ -27,4 +27,4 @@
     return Math.round(num * 10) / 10;
   };
 
-})(window, window.bomns = window.bomns || {});
+})(window.bomns = window.bomns || {});
