@@ -23,8 +23,8 @@
    */
   b.Player = function(playerNum) {
     // position is in TILES, not pixels
-    this.x = 0;
-    this.y = 0;
+    this.row = 0
+    this.col = 0;
     this.playerNum = playerNum;
   };
 
@@ -84,26 +84,26 @@
    * Move the player!
    */
   b.Player.prototype.moveRight = function() {
-    if(this.x < b.LEVEL_WIDTH - 1) {
-      this.x++;
+    if(this.col < b.LEVEL_WIDTH - 1) {
+      this.col++;
     }
   };
 
   b.Player.prototype.moveLeft = function() {
-    if(this.x > 0) {
-      this.x--;
+    if(this.col > 0) {
+      this.col--;
     }
   };
 
   b.Player.prototype.moveUp = function() {
-    if(this.y > 0) {
-      this.y--;
+    if(this.row > 0) {
+      this.row--;
     }
   };
 
   b.Player.prototype.moveDown = function() {
-    if(this.y < b.LEVEL_HEIGHT - 1) {
-      this.y++;
+    if(this.row < b.LEVEL_HEIGHT - 1) {
+      this.row++;
     }
   };
 
@@ -115,8 +115,8 @@
     // Mult by tile size to get the right pixel coordinates, then add half
     // because we're giving *center* coordinates for a circle... at least for
     // now.
-    var centerX = (this.x * b.TILE_SIZE) + (b.TILE_SIZE / 2);
-    var centerY = (this.y * b.TILE_SIZE) + (b.TILE_SIZE / 2);
+    var centerX = (this.col * b.TILE_SIZE) + (b.TILE_SIZE / 2);
+    var centerY = (this.row * b.TILE_SIZE) + (b.TILE_SIZE / 2);
 
     context.beginPath();
     context.arc(centerX, centerY, b.TILE_SIZE / 2, 0, 2 * Math.PI, false);
