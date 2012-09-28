@@ -10,7 +10,8 @@
     this.canvas = {};
     this.context = {};
     this.canvasId = canvasId; // id of the canvas element
-    this.player = new b.Player(); // the player
+    this.playerOne = new b.Player(b.PLAYER_ONE);
+    this.playerTwo = new b.Player(b.PLAYER_TWO);
   };
 
 
@@ -38,7 +39,8 @@
    * Callback to handle key press.
    */
   b.Game.prototype.keyDownHandler = function(event) {
-    this.player.processKeyPress(event.keyCode);
+    this.playerOne.processKeyPress(event.keyCode);
+    this.playerTwo.processKeyPress(event.keyCode);
   };
 
 
@@ -58,7 +60,8 @@
     this.context.fillStyle = 'black';
     this.context.fillRect(0, 0, b.SCREEN_WIDTH, b.SCREEN_HEIGHT);
 
-    this.player.draw(this.context);
+    this.playerOne.draw(this.context);
+    this.playerTwo.draw(this.context);
   };
 
 

@@ -1,20 +1,31 @@
 (function(window, b, undefined) {
   'use strict';
 
-  // player 1 keycodes
-  var MOVE_RIGHT = 39;
-  var MOVE_LEFT = 37;
-  var MOVE_UP = 38;
-  var MOVE_DOWN = 40;
-  var BOMN = 13;
+  var P1_COLOR = 'red';
+  var P2_COLOR = 'blue';
+
+  // player 1 keycodes (arrows + enter)
+  var P1_MOVE_RIGHT = 39;
+  var P1_MOVE_LEFT = 37;
+  var P1_MOVE_UP = 38;
+  var P1_MOVE_DOWN = 40;
+  var P1_BOMN = 13;
+
+  // player 2 keycodes (wasd + spacebar)
+  var P2_MOVE_RIGHT = 68;
+  var P2_MOVE_LEFT = 65;
+  var P2_MOVE_UP = 87;
+  var P2_MOVE_DOWN = 83;
+  var P2_BOMN = 32;
 
   /*
    * The Player object -- the player of the game!
    */
-  b.Player = function() {
+  b.Player = function(playerNum) {
     // position is in TILES, not pixels
     this.x = 0;
     this.y = 0;
+    this.playerNum = playerNum;
   };
 
 
@@ -27,22 +38,44 @@
 
 
   b.Player.prototype.processKeyPress = function(keyCode) {
-    switch(keyCode) {
-      case MOVE_RIGHT:
-        this.moveRight();
-        break;
+    if(this.playerNum === b.PLAYER_ONE) {
+      switch(keyCode) {
+        case P1_MOVE_RIGHT:
+          this.moveRight();
+          break;
 
-      case MOVE_LEFT:
-        this.moveLeft();
-        break;
+        case P1_MOVE_LEFT:
+          this.moveLeft();
+          break;
 
-      case MOVE_UP:
-        this.moveUp();
-        break;
+        case P1_MOVE_UP:
+          this.moveUp();
+          break;
 
-      case MOVE_DOWN:
-        this.moveDown();
-        break;
+        case P1_MOVE_DOWN:
+          this.moveDown();
+          break;
+      }
+    }
+
+    if(this.playerNum === b.PLAYER_TWO) {
+      switch(keyCode) {
+        case P2_MOVE_RIGHT:
+          this.moveRight();
+          break;
+
+        case P2_MOVE_LEFT:
+          this.moveLeft();
+          break;
+
+        case P2_MOVE_UP:
+          this.moveUp();
+          break;
+
+        case P2_MOVE_DOWN:
+          this.moveDown();
+          break;
+      }
     }
   };
 
@@ -87,7 +120,7 @@
 
     context.beginPath();
     context.arc(centerX, centerY, b.TILE_SIZE / 2, 0, 2 * Math.PI, false);
-    context.fillStyle = 'red';
+    context.fillStyle = (this.playerNum === b.PLAYER_ONE ? P1_COLOR : P2_COLOR);
     context.fill();
     context.stroke();
   };

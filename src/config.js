@@ -9,11 +9,8 @@
   b.LEVEL_HEIGHT = b.SCREEN_HEIGHT / b.TILE_SIZE; // in tiles
   b.FPS = 60;
 
-  // player 1 keycodes
-  b.MOVE_RIGHT = 39;
-  b.MOVE_LEFT = 37;
-  b.MOVE_UP = 38;
-  b.MOVE_DOWN = 40;
-  b.BOMN = 13;
+  // player constants
+  b.PLAYER_ONE = 1;
+  b.PLAYER_TWO = 2;
 
 })(window, window.bomns = window.bomns || {});
