@@ -38,7 +38,7 @@
    * Callback to handle key press.
    */
   b.Game.prototype.keyDownHandler = function(event) {
-    console.log("keydown");
+    this.player.processKeyPress(event.keyCode);
   };
 
 

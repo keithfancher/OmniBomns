@@ -9,7 +9,6 @@
     var game = new s.Game('world');
     if(game.initCanvas()) {
       game.initListeners();
-//      game.initEnemies(10); // 10 initial enemies
       game.start();
     }
     else {
