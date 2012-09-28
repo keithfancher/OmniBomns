@@ -109,4 +109,27 @@
     context.fillText('↓', pixelX, pixelY); // hopefully you like unicode!
   };
 
+
+  /*
+   * Health! Inherits from LevelObject.
+   */
+  b.Health = function(row, col) {
+    this.row = row;
+    this.col = col;
+    this.solid = false;
+  };
+  b.Health.prototype = new b.LevelObject(); // inherit!
+
+  /*
+   * Draw the Health, yo.
+   */
+  b.Health.prototype.draw = function(context) {
+    // convert from tile coords to pixel coords
+    var pixelX = this.col * b.TILE_SIZE + 1;
+    var pixelY = this.row * b.TILE_SIZE - 3;
+    context.font = '15px serif';
+    context.fillStyle = 'red';
+    context.fillText('❤', pixelX, pixelY); // hopefully you like unicode!
+  };
+
 })(window.bomns = window.bomns || {});

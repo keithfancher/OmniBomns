@@ -60,6 +60,11 @@
     this.insertRandomObjects(b.NUM_POWERDOWNS, function(row, col) {
       return new b.PowerDown(row, col);
     });
+
+    // health
+    this.insertRandomObjects(b.NUM_HEALTH, function(row, col) {
+      return new b.Health(row, col);
+    });
   };
 
 
