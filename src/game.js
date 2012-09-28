@@ -12,6 +12,7 @@
     this.canvasId = canvasId; // id of the canvas element
     this.playerOne = new b.Player(b.PLAYER_ONE);
     this.playerTwo = new b.Player(b.PLAYER_TWO);
+    this.level = new b.Level();
   };
 
 
@@ -60,6 +61,8 @@
     this.context.fillStyle = 'black';
     this.context.fillRect(0, 0, b.SCREEN_WIDTH, b.SCREEN_HEIGHT);
 
+    this.level.draw(this.context);
+
     this.playerOne.draw(this.context);
     this.playerTwo.draw(this.context);
   };
@@ -69,6 +72,9 @@
    * Set the magic in motion!
    */
   b.Game.prototype.start = function() {
+    // initialize the level
+    this.level.init();
+
     var that = this;
     setInterval(function() {that.mainLoop();}, 1000 / b.FPS);
   };
