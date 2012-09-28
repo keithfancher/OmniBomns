@@ -1,12 +1,12 @@
-(function(window, s, undefined) {
+(function(window, b, undefined) {
   'use strict';
 
   /*
-   * Set everything up: create the canvas, create the player, start the game
-   * loop.
+   * Set everything up: create the canvas, create everything else, start the
+   * game loop.
    */
   (function main() {
-    var game = new s.Game('world');
+    var game = new b.Game('world');
     if(game.initCanvas()) {
       game.initListeners();
       game.start();

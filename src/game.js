@@ -40,8 +40,8 @@
    * Callback to handle key press.
    */
   b.Game.prototype.keyDownHandler = function(event) {
-    this.playerOne.processKeyPress(event.keyCode);
-    this.playerTwo.processKeyPress(event.keyCode);
+    this.playerOne.processKeyPress(event.keyCode, this.level);
+    this.playerTwo.processKeyPress(event.keyCode, this.level);
   };
 
 

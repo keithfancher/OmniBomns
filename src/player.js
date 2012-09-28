@@ -23,7 +23,7 @@
    */
   b.Player = function(playerNum) {
     // position is in TILES, not pixels
-    this.row = 0
+    this.row = 0;
     this.col = 0;
     this.playerNum = playerNum;
   };
@@ -37,23 +37,26 @@
   };
 
 
-  b.Player.prototype.processKeyPress = function(keyCode) {
+  /*
+   * Should this take the level? Player needs access to it here somehow...
+   */
+  b.Player.prototype.processKeyPress = function(keyCode, level) {
     if(this.playerNum === b.PLAYER_ONE) {
       switch(keyCode) {
         case P1_MOVE_RIGHT:
-          this.moveRight();
+          this.moveRight(level);
           break;
 
         case P1_MOVE_LEFT:
-          this.moveLeft();
+          this.moveLeft(level);
           break;
 
         case P1_MOVE_UP:
-          this.moveUp();
+          this.moveUp(level);
           break;
 
         case P1_MOVE_DOWN:
-          this.moveDown();
+          this.moveDown(level);
           break;
       }
     }
@@ -61,19 +64,19 @@
     if(this.playerNum === b.PLAYER_TWO) {
       switch(keyCode) {
         case P2_MOVE_RIGHT:
-          this.moveRight();
+          this.moveRight(level);
           break;
 
         case P2_MOVE_LEFT:
-          this.moveLeft();
+          this.moveLeft(level);
           break;
 
         case P2_MOVE_UP:
-          this.moveUp();
+          this.moveUp(level);
           break;
 
         case P2_MOVE_DOWN:
-          this.moveDown();
+          this.moveDown(level);
           break;
       }
     }
@@ -83,27 +86,43 @@
   /*
    * Move the player!
    */
-  b.Player.prototype.moveRight = function() {
+  b.Player.prototype.moveRight = function(level) {
+    // can't move off the screen
     if(this.col < b.LEVEL_WIDTH - 1) {
-      this.col++;
+      // only move if destination is not filled with solid object
+      if(!level.tiles[this.row][this.col + 1].solid) {
+        this.col++;
+      }
     }
   };
 
-  b.Player.prototype.moveLeft = function() {
+  b.Player.prototype.moveLeft = function(level) {
+    // can't move off the screen
     if(this.col > 0) {
-      this.col--;
+      // only move if destination is not filled with solid object
+      if(!level.tiles[this.row][this.col - 1].solid) {
+        this.col--;
+      }
     }
   };
 
-  b.Player.prototype.moveUp = function() {
+  b.Player.prototype.moveUp = function(level) {
+    // can't move off the screen
     if(this.row > 0) {
-      this.row--;
+      // only move if destination is not filled with solid object
+      if(!level.tiles[this.row - 1][this.col].solid) {
+        this.row--;
+      }
     }
   };
 
-  b.Player.prototype.moveDown = function() {
+  b.Player.prototype.moveDown = function(level) {
+    // can't move off the screen
     if(this.row < b.LEVEL_HEIGHT - 1) {
-      this.row++;
+      // only move if destination is not filled with solid object
+      if(!level.tiles[this.row + 1][this.col].solid) {
+        this.row++;
+      }
     }
   };
 
