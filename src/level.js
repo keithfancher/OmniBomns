@@ -50,6 +50,11 @@
     this.insertRandomObjects(b.NUM_INVULNS, function(row, col) {
       return new b.Invuln(row, col);
     });
+
+    // powerups
+    this.insertRandomObjects(b.NUM_POWERUPS, function(row, col) {
+      return new b.PowerUp(row, col);
+    });
   };
 
 

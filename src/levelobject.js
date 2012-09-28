@@ -52,7 +52,7 @@
   b.Invuln.prototype = new b.LevelObject(); // inherit!
 
   /*
-   * Draw the powerup, yo.
+   * Draw the Invuln, yo.
    */
   b.Invuln.prototype.draw = function(context) {
     // convert from tile coords to pixel coords
@@ -61,6 +61,29 @@
     context.font = '15px serif';
     context.fillStyle = 'yellow';
     context.fillText('!!', pixelX, pixelY);
+  };
+
+
+  /*
+   * PowerUp! Inherits from LevelObject.
+   */
+  b.PowerUp = function(row, col) {
+    this.row = row;
+    this.col = col;
+    this.solid = false;
+  };
+  b.PowerUp.prototype = new b.LevelObject(); // inherit!
+
+  /*
+   * Draw the PowerUp, yo.
+   */
+  b.PowerUp.prototype.draw = function(context) {
+    // convert from tile coords to pixel coords
+    var pixelX = this.col * b.TILE_SIZE + 3; // +-3 centers text better
+    var pixelY = this.row * b.TILE_SIZE - 3; // obviously will remove later
+    context.font = '15px serif';
+    context.fillStyle = 'green';
+    context.fillText('↑', pixelX, pixelY); // hopefully you like unicode!
   };
 
 })(window.bomns = window.bomns || {});
