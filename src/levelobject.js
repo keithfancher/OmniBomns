@@ -1,13 +1,8 @@
 (function(window, b, undefined) {
   'use strict';
 
-  // level object types
-  var OBJ_NONE = 0;
-  var OBJ_WALL = 1;
-
-
   /*
-   * LevelObject -- different kinds of objects that live in... the level!
+   * LevelObject -- different kinds of objects that live in... the level! This will be overridden by the different types of object.
    */
   b.LevelObject = function(row, col) {
     this.row = row;
@@ -17,8 +12,8 @@
   };
 
   /*
-   * Will be overridden by child object. Where are those abstract function when
-   * you need 'em, eh?
+   * Will be overridden by child object. Where are abstract function when you
+   * need 'em, eh? (Just kidding, I hate polymorphism. (Just kidding.))
    */
   b.LevelObject.prototype.draw = function(context) {
     return;
