@@ -35,6 +35,23 @@
 
 
   /*
+   * Callback to handle key press.
+   */
+  b.Game.prototype.keyDownHandler = function(event) {
+    console.log("keydown");
+  };
+
+
+  /*
+   * Set up event listener(s).
+   */
+  b.Game.prototype.initListeners = function() {
+    var that = this;
+    document.addEventListener('keydown', function(event){that.keyDownHandler(event);});
+  };
+
+
+  /*
    * Main event loop, called every frame.
    */
   b.Game.prototype.mainLoop = function() {
