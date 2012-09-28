@@ -13,4 +13,8 @@
   b.PLAYER_ONE = 1;
   b.PLAYER_TWO = 2;
 
+  // number of initial objects in level
+  b.NUM_WALLS = 100;
+  b.NUM_INVULNS = 10;
+
 })(window, window.bomns = window.bomns || {});

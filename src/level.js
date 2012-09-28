@@ -24,9 +24,22 @@
 
 
   /*
-   * Fill the level with object.
+   * Fill the level with objects.
    */
   b.Level.prototype.fill = function() {
+    // insert walls
+    for(var i = 0; i < b.NUM_WALLS; i++) {
+      var row = b.randomInt(0, b.LEVEL_HEIGHT - 1);
+      var col = b.randomInt(0, b.LEVEL_WIDTH - 1);
+      this.tiles[row][col] = new b.Wall(row, col);
+    }
+
+    // insert invulnerabilities
+    for(var i = 0; i < b.NUM_INVULNS; i++) {
+      var row = b.randomInt(0, b.LEVEL_HEIGHT - 1);
+      var col = b.randomInt(0, b.LEVEL_WIDTH - 1);
+      this.tiles[row][col] = new b.Invuln(row, col);
+    }
   };
 
 

@@ -74,6 +74,7 @@
   b.Game.prototype.start = function() {
     // initialize the level
     this.level.init();
+    this.level.fill();
 
     var that = this;
     setInterval(function() {that.mainLoop();}, 1000 / b.FPS);
