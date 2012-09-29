@@ -1,6 +1,12 @@
 (function(window, document, b, undefined) {
   'use strict';
 
+  // arrays of the players' keybindings, useful for telling which player to
+  // route keypresses to
+  var P1_KEYS = [b.P1_MOVE_RIGHT, b.P1_MOVE_LEFT, b.P1_MOVE_UP, b.P1_MOVE_DOWN, b.P1_BOMN];
+  var P2_KEYS = [b.P2_MOVE_RIGHT, b.P2_MOVE_LEFT, b.P2_MOVE_UP, b.P2_MOVE_DOWN, b.P2_BOMN];
+
+
   /*
    * The Game object. This is the big banana! Contains much of the game's
    * state, logic, &c. Pass it the id of your canvas, run its init() functions,
@@ -13,7 +19,6 @@
     this.playerOne = new b.Player(b.PLAYER_ONE);
     this.playerTwo = new b.Player(b.PLAYER_TWO);
     this.level = new b.Level();
-    this.keysDown = {};
   };
 
 
@@ -41,9 +46,13 @@
    * Callback to handle key press.
    */
   b.Game.prototype.keyDownHandler = function(event) {
-    this.keysDown[event.keyCode] = true;
-    this.playerOne.processKeyPress(this.keysDown, this.level);
-    this.playerTwo.processKeyPress(this.keysDown, this.level);
+    // don't bother handling invalid keypresses!
+    if(P1_KEYS.indexOf(event.keyCode) !== -1) {
+      this.playerOne.processKeyPress(event.keyCode, this.level);
+    }
+    if(P2_KEYS.indexOf(event.keyCode) !== -1) {
+      this.playerTwo.processKeyPress(event.keyCode, this.level);
+    }
   };
 
 
@@ -51,9 +60,12 @@
    * Callback to handle key release.
    */
   b.Game.prototype.keyUpHandler = function(event) {
-    this.keysDown[event.keyCode] = false;
-    this.playerOne.processKeyRelease(event.keyCode);
-    this.playerTwo.processKeyRelease(event.keyCode);
+    if(P1_KEYS.indexOf(event.keyCode) !== -1) {
+      this.playerOne.processKeyRelease(event.keyCode);
+    }
+    if(P2_KEYS.indexOf(event.keyCode) !== -1) {
+      this.playerTwo.processKeyRelease(event.keyCode);
+    }
   };
 
 

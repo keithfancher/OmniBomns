@@ -14,6 +14,20 @@
   b.PLAYER_TWO = 2;
   b.MAX_HEALTH = 10;
 
+  // player 1 keycodes (arrows + enter)
+  b.P1_MOVE_RIGHT = 39;
+  b.P1_MOVE_LEFT = 37;
+  b.P1_MOVE_UP = 38;
+  b.P1_MOVE_DOWN = 40;
+  b.P1_BOMN = 13;
+
+  // player 2 keycodes (wasd + spacebar)
+  b.P2_MOVE_RIGHT = 68;
+  b.P2_MOVE_LEFT = 65;
+  b.P2_MOVE_UP = 87;
+  b.P2_MOVE_DOWN = 83;
+  b.P2_BOMN = 32;
+
   // number of initial objects in level
   b.NUM_WALLS = 100;
   b.NUM_INVULNS = 10;

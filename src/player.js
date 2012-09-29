@@ -4,21 +4,6 @@
   var P1_COLOR = 'red';
   var P2_COLOR = 'blue';
 
-  // player 1 keycodes (arrows + enter)
-  var P1_MOVE_RIGHT = 39;
-  var P1_MOVE_LEFT = 37;
-  var P1_MOVE_UP = 38;
-  var P1_MOVE_DOWN = 40;
-  var P1_BOMN = 13;
-
-  // player 2 keycodes (wasd + spacebar)
-  var P2_MOVE_RIGHT = 68;
-  var P2_MOVE_LEFT = 65;
-  var P2_MOVE_UP = 87;
-  var P2_MOVE_DOWN = 83;
-  var P2_BOMN = 32;
-
-
   /*
    * The Player object -- the player of the game!
    */
@@ -47,57 +32,27 @@
   /*
    * Should this take the level? Player needs access to it here somehow...
    */
-  b.Player.prototype.processKeyPress = function(keysDown, level) {
-    // player one
-    if(keysDown[P1_MOVE_RIGHT]) {
-      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_RIGHT]) {
-        this.moveRight(level);
-        this.moved[P1_MOVE_RIGHT] = true;
-      }
+  b.Player.prototype.processKeyPress = function(keyCode, level) {
+    // if the button has been pressed but not yet released, can't move!
+    if(this.moved[keyCode]) {
+      return;
     }
-    if(keysDown[P1_MOVE_LEFT]) {
-      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_LEFT]) {
-        this.moveLeft(level);
-        this.moved[P1_MOVE_LEFT] = true;
-      }
-    }
-    if(keysDown[P1_MOVE_UP]) {
-      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_UP]) {
-        this.moveUp(level);
-        this.moved[P1_MOVE_UP] = true;
-      }
-    }
-    if(keysDown[P1_MOVE_DOWN]) {
-      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_DOWN]) {
-        this.moveDown(level);
-        this.moved[P1_MOVE_DOWN] = true;
-      }
+    else {
+      // now we can't move that direction till we release the key!
+      this.moved[keyCode] = true;
     }
 
-    // player two
-    if(keysDown[P2_MOVE_RIGHT]) {
-      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_RIGHT]) {
-        this.moveRight(level);
-        this.moved[P2_MOVE_RIGHT] = true;
-      }
+    if(keyCode === b.P1_MOVE_RIGHT || keyCode === b.P2_MOVE_RIGHT) {
+      this.moveRight(level);
     }
-    if(keysDown[P2_MOVE_LEFT]) {
-      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_LEFT]) {
-        this.moveLeft(level);
-        this.moved[P2_MOVE_LEFT] = true;
-      }
+    if(keyCode === b.P1_MOVE_LEFT || keyCode === b.P2_MOVE_LEFT) {
+      this.moveLeft(level);
     }
-    if(keysDown[P2_MOVE_UP]) {
-      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_UP]) {
-        this.moveUp(level);
-        this.moved[P2_MOVE_UP] = true;
-      }
+    if(keyCode === b.P1_MOVE_UP || keyCode === b.P2_MOVE_UP) {
+      this.moveUp(level);
     }
-    if(keysDown[P2_MOVE_DOWN]) {
-      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_DOWN]) {
-        this.moveDown(level);
-        this.moved[P2_MOVE_DOWN] = true;
-      }
+    if(keyCode === b.P1_MOVE_DOWN || keyCode === b.P2_MOVE_DOWN) {
+      this.moveDown(level);
     }
   };
 
@@ -113,6 +68,15 @@
   /*
    * Move the player!
    */
+  b.Player.prototype.move = function(row, col) {
+    // TODO TODO FIXME FIXME
+    // if dest !offscreen
+    // if dest !solid
+    // if it's solid and a warp
+    // if it's solid and another player
+    // TODO: delete move* functions... too much repetition
+  };
+
   b.Player.prototype.moveRight = function(level) {
     // can't move off the screen
     if(this.col < b.LEVEL_WIDTH - 1) {
