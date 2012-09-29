@@ -219,7 +219,7 @@
     if(pickedUp) {
       level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
     }
-  }
+  };
 
 
   /*
