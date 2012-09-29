@@ -1,9 +1,9 @@
 TODO
 ====
+* less sloppy keyboard handling... tapping doesn't feel right
 * invulnerability
 * set bomns!
 * hurt/kill the other player
-* force the player to tap instead of holding down movement keys
 * timer
 * real interface, instructions, etc.
 * real sprites instead of shapes & unicode characters

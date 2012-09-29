@@ -30,6 +30,7 @@
     this.bomns = 10;
     this.bomnRadius = 1;
     this.invulnerable = false;
+    this.moving = false; // use to track if player is moving, force them to tap!
   };
 
 
@@ -46,6 +47,11 @@
    * Should this take the level? Player needs access to it here somehow...
    */
   b.Player.prototype.processKeyPress = function(keyCode, level) {
+    // if they've pressed a key and haven't released, don't let them move!
+    if(this.moving) {
+      return;
+    }
+
     if(this.playerNum === b.PLAYER_ONE) {
       switch(keyCode) {
         case P1_MOVE_RIGHT:
@@ -89,9 +95,31 @@
 
 
   /*
+   * Process the release of keys... useful to force players to tap!
+   */
+  b.Player.prototype.processKeyRelease = function(keyCode) {
+    if(this.playerNum === b.PLAYER_ONE) {
+      if(keyCode === P1_MOVE_RIGHT || keyCode === P1_MOVE_LEFT ||
+         keyCode === P1_MOVE_UP || keyCode || P1_MOVE_DOWN) {
+        this.moving = false;
+      }
+    }
+
+    if(this.playerNum === b.PLAYER_TWO) {
+      if(keyCode === P2_MOVE_RIGHT || keyCode === P2_MOVE_LEFT ||
+         keyCode === P2_MOVE_UP || keyCode || P2_MOVE_DOWN) {
+        this.moving = false;
+      }
+    }
+  };
+
+
+  /*
    * Move the player!
    */
   b.Player.prototype.moveRight = function(level) {
+    this.moving = true;
+
     // can't move off the screen
     if(this.col < b.LEVEL_WIDTH - 1) {
       // only move if destination is not filled with solid object
@@ -109,6 +137,8 @@
   };
 
   b.Player.prototype.moveLeft = function(level) {
+    this.moving = true;
+
     // can't move off the screen
     if(this.col > 0) {
       // only move if destination is not filled with solid object
@@ -126,6 +156,8 @@
   };
 
   b.Player.prototype.moveUp = function(level) {
+    this.moving = true;
+
     // can't move off the screen
     if(this.row > 0) {
       // only move if destination is not filled with solid object
@@ -143,6 +175,8 @@
   };
 
   b.Player.prototype.moveDown = function(level) {
+    this.moving = true;
+
     // can't move off the screen
     if(this.row < b.LEVEL_HEIGHT - 1) {
       // only move if destination is not filled with solid object

@@ -46,11 +46,21 @@
 
 
   /*
+   * Callback to handle key release.
+   */
+  b.Game.prototype.keyUpHandler = function(event) {
+    this.playerOne.processKeyRelease(event.keyCode);
+    this.playerTwo.processKeyRelease(event.keyCode);
+  };
+
+
+  /*
    * Set up event listener(s).
    */
   b.Game.prototype.initListeners = function() {
     var that = this;
     document.addEventListener('keydown', function(event){that.keyDownHandler(event);});
+    document.addEventListener('keyup', function(event){that.keyUpHandler(event);});
   };
 
 
