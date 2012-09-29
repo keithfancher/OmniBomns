@@ -195,8 +195,14 @@
       // TODO
     }
     else if(tile instanceof b.PowerUp) {
+      this.bomnRadius++;
+      pickedUp = true;
     }
     else if(tile instanceof b.PowerDown) {
+      if(this.bomnRadius > 1) {
+        this.bomnRadius--;
+        pickedUp = true;
+      }
     }
     else if(tile instanceof b.Health) {
       if(this.health < b.MAX_HEALTH) {
