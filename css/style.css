@@ -3,6 +3,16 @@ html, body {
   color: white;
 }
 
+h1 {
+  font-family: 'Trade Winds', serif;
+  text-align: center;
+  font-size: 40px;
+}
+
+h1 sup {
+  font-size: 40%;
+}
+
 canvas {
   background-color: #000000;
 }
