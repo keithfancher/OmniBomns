@@ -26,6 +26,10 @@
     this.row = 0;
     this.col = 0;
     this.playerNum = playerNum;
+    this.health = 10;
+    this.bomns = 10;
+    this.bomnRadius = 1;
+    this.invulnerable = false;
   };
 
 
@@ -33,7 +37,8 @@
    * Update the player's state.
    */
   b.Player.prototype.update = function() {
-
+    // TODO!
+    return;
   };
 
 
@@ -183,9 +188,21 @@
    * Pick up the object, if any, that lives on the passed tile object.
    */
   b.Player.prototype.pickUp = function(level) {
-    level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
+    var tile = level.tiles[this.row][this.col];
 
-    // TODO: do things!
+    if(tile instanceof b.Invuln) {
+    }
+    else if(tile instanceof b.PowerUp) {
+    }
+    else if(tile instanceof b.PowerDown) {
+    }
+    else if(tile instanceof b.Health) {
+    }
+    else if(tile instanceof b.Bomn) {
+      this.bomns++;
+    }
+
+    level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
   }
 
 
