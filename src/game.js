@@ -13,6 +13,7 @@
     this.playerOne = new b.Player(b.PLAYER_ONE);
     this.playerTwo = new b.Player(b.PLAYER_TWO);
     this.level = new b.Level();
+    this.keysDown = {};
   };
 
 
@@ -40,8 +41,9 @@
    * Callback to handle key press.
    */
   b.Game.prototype.keyDownHandler = function(event) {
-    this.playerOne.processKeyPress(event.keyCode, this.level);
-    this.playerTwo.processKeyPress(event.keyCode, this.level);
+    this.keysDown[event.keyCode] = true;
+    this.playerOne.processKeyPress(this.keysDown, this.level);
+    this.playerTwo.processKeyPress(this.keysDown, this.level);
   };
 
 
@@ -49,6 +51,7 @@
    * Callback to handle key release.
    */
   b.Game.prototype.keyUpHandler = function(event) {
+    this.keysDown[event.keyCode] = false;
     this.playerOne.processKeyRelease(event.keyCode);
     this.playerTwo.processKeyRelease(event.keyCode);
   };

@@ -18,6 +18,7 @@
   var P2_MOVE_DOWN = 83;
   var P2_BOMN = 32;
 
+
   /*
    * The Player object -- the player of the game!
    */
@@ -30,7 +31,7 @@
     this.bomns = 10;
     this.bomnRadius = 1;
     this.invulnerable = false;
-    this.moving = false; // use to track if player is moving, force them to tap!
+    this.moved = {}; // counting on !undefined equalling true for initial run
   };
 
 
@@ -46,49 +47,56 @@
   /*
    * Should this take the level? Player needs access to it here somehow...
    */
-  b.Player.prototype.processKeyPress = function(keyCode, level) {
-    // if they've pressed a key and haven't released, don't let them move!
-    if(this.moving) {
-      return;
+  b.Player.prototype.processKeyPress = function(keysDown, level) {
+    // player one
+    if(keysDown[P1_MOVE_RIGHT]) {
+      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_RIGHT]) {
+        this.moveRight(level);
+        this.moved[P1_MOVE_RIGHT] = true;
+      }
     }
-
-    if(this.playerNum === b.PLAYER_ONE) {
-      switch(keyCode) {
-        case P1_MOVE_RIGHT:
-          this.moveRight(level);
-          break;
-
-        case P1_MOVE_LEFT:
-          this.moveLeft(level);
-          break;
-
-        case P1_MOVE_UP:
-          this.moveUp(level);
-          break;
-
-        case P1_MOVE_DOWN:
-          this.moveDown(level);
-          break;
+    if(keysDown[P1_MOVE_LEFT]) {
+      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_LEFT]) {
+        this.moveLeft(level);
+        this.moved[P1_MOVE_LEFT] = true;
+      }
+    }
+    if(keysDown[P1_MOVE_UP]) {
+      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_UP]) {
+        this.moveUp(level);
+        this.moved[P1_MOVE_UP] = true;
+      }
+    }
+    if(keysDown[P1_MOVE_DOWN]) {
+      if(this.playerNum === b.PLAYER_ONE && !this.moved[P1_MOVE_DOWN]) {
+        this.moveDown(level);
+        this.moved[P1_MOVE_DOWN] = true;
       }
     }
 
-    if(this.playerNum === b.PLAYER_TWO) {
-      switch(keyCode) {
-        case P2_MOVE_RIGHT:
-          this.moveRight(level);
-          break;
-
-        case P2_MOVE_LEFT:
-          this.moveLeft(level);
-          break;
-
-        case P2_MOVE_UP:
-          this.moveUp(level);
-          break;
-
-        case P2_MOVE_DOWN:
-          this.moveDown(level);
-          break;
+    // player two
+    if(keysDown[P2_MOVE_RIGHT]) {
+      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_RIGHT]) {
+        this.moveRight(level);
+        this.moved[P2_MOVE_RIGHT] = true;
+      }
+    }
+    if(keysDown[P2_MOVE_LEFT]) {
+      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_LEFT]) {
+        this.moveLeft(level);
+        this.moved[P2_MOVE_LEFT] = true;
+      }
+    }
+    if(keysDown[P2_MOVE_UP]) {
+      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_UP]) {
+        this.moveUp(level);
+        this.moved[P2_MOVE_UP] = true;
+      }
+    }
+    if(keysDown[P2_MOVE_DOWN]) {
+      if(this.playerNum === b.PLAYER_TWO && !this.moved[P2_MOVE_DOWN]) {
+        this.moveDown(level);
+        this.moved[P2_MOVE_DOWN] = true;
       }
     }
   };
@@ -98,19 +106,7 @@
    * Process the release of keys... useful to force players to tap!
    */
   b.Player.prototype.processKeyRelease = function(keyCode) {
-    if(this.playerNum === b.PLAYER_ONE) {
-      if(keyCode === P1_MOVE_RIGHT || keyCode === P1_MOVE_LEFT ||
-         keyCode === P1_MOVE_UP || keyCode || P1_MOVE_DOWN) {
-        this.moving = false;
-      }
-    }
-
-    if(this.playerNum === b.PLAYER_TWO) {
-      if(keyCode === P2_MOVE_RIGHT || keyCode === P2_MOVE_LEFT ||
-         keyCode === P2_MOVE_UP || keyCode || P2_MOVE_DOWN) {
-        this.moving = false;
-      }
-    }
+    this.moved[keyCode] = false;
   };
 
 
@@ -118,8 +114,6 @@
    * Move the player!
    */
   b.Player.prototype.moveRight = function(level) {
-    this.moving = true;
-
     // can't move off the screen
     if(this.col < b.LEVEL_WIDTH - 1) {
       // only move if destination is not filled with solid object
@@ -137,8 +131,6 @@
   };
 
   b.Player.prototype.moveLeft = function(level) {
-    this.moving = true;
-
     // can't move off the screen
     if(this.col > 0) {
       // only move if destination is not filled with solid object
@@ -156,8 +148,6 @@
   };
 
   b.Player.prototype.moveUp = function(level) {
-    this.moving = true;
-
     // can't move off the screen
     if(this.row > 0) {
       // only move if destination is not filled with solid object
@@ -175,8 +165,6 @@
   };
 
   b.Player.prototype.moveDown = function(level) {
-    this.moving = true;
-
     // can't move off the screen
     if(this.row < b.LEVEL_HEIGHT - 1) {
       // only move if destination is not filled with solid object
