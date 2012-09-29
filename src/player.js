@@ -15,6 +15,7 @@
     this.bomns = 10;
     this.bomnRadius = 1;
     this.invulnerable = false;
+    this.invulnerabilityTimer = 0;
     this.moved = {}; // counting on !undefined equalling true for initial run
   };
 
@@ -23,7 +24,13 @@
    * Update the player's state.
    */
   b.Player.prototype.update = function() {
-    // TODO!
+    if(this.invulnerable) {
+      // countdown their invulnerability time, 10 seconds
+      if(Date.now() - this.invulnerabilityTimer >= 10000) {
+        this.invulnerable = false;
+        this.invulnerabilityTimer = 0;
+      }
+    }
     return;
   };
 
@@ -130,7 +137,12 @@
     var pickedUp = false; // sometimes we can't pick something up! (health, etc.)
 
     if(tile instanceof b.Invuln) {
-      // TODO
+      // can't get multiple invulnerabilities or extend the time
+      if(!this.invulnerable) {
+        this.invulnerable = true;
+        this.invulnerabilityTimer = Date.now();
+        pickedUp = true;
+      }
     }
     else if(tile instanceof b.PowerUp) {
       this.bomnRadius++;
@@ -172,7 +184,7 @@
 
     context.beginPath();
     context.arc(centerX, centerY, b.TILE_SIZE / 2, 0, 2 * Math.PI, false);
-    context.fillStyle = this.color;
+    context.fillStyle = (this.invulnerable ? 'yellow' : this.color);
     context.fill();
     context.stroke();
   };

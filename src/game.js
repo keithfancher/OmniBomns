@@ -90,8 +90,10 @@
     this.context.fillStyle = 'black';
     this.context.fillRect(0, 0, b.SCREEN_WIDTH, b.SCREEN_HEIGHT);
 
-    this.level.draw(this.context);
+    this.playerOne.update();
+    this.playerTwo.update();
 
+    this.level.draw(this.context);
     this.playerOne.draw(this.context);
     this.playerTwo.draw(this.context);
   };
