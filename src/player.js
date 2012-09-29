@@ -1,17 +1,16 @@
 (function(b, undefined) {
   'use strict';
 
-  var P1_COLOR = 'red';
-  var P2_COLOR = 'blue';
-
   /*
-   * The Player object -- the player of the game!
+   * The Player object -- the player of the game! Constructor takes player
+   * number, color, and initial row and column of the player.
    */
-  b.Player = function(playerNum) {
+  b.Player = function(playerNum, color, row, col) {
     // position is in TILES, not pixels
-    this.row = 0;
-    this.col = 0;
+    this.row = row;
+    this.col = col;
     this.playerNum = playerNum;
+    this.color = color;
     this.health = b.MAX_HEALTH;
     this.bomns = 10;
     this.bomnRadius = 1;
@@ -173,7 +172,7 @@
 
     context.beginPath();
     context.arc(centerX, centerY, b.TILE_SIZE / 2, 0, 2 * Math.PI, false);
-    context.fillStyle = (this.playerNum === b.PLAYER_ONE ? P1_COLOR : P2_COLOR);
+    context.fillStyle = this.color;
     context.fill();
     context.stroke();
   };

@@ -6,6 +6,10 @@
   var P1_KEYS = [b.P1_MOVE_RIGHT, b.P1_MOVE_LEFT, b.P1_MOVE_UP, b.P1_MOVE_DOWN, b.P1_BOMN];
   var P2_KEYS = [b.P2_MOVE_RIGHT, b.P2_MOVE_LEFT, b.P2_MOVE_UP, b.P2_MOVE_DOWN, b.P2_BOMN];
 
+  // player colors
+  var P1_COLOR = 'red';
+  var P2_COLOR = 'blue';
+
 
   /*
    * The Game object. This is the big banana! Contains much of the game's
@@ -16,8 +20,8 @@
     this.canvas = {};
     this.context = {};
     this.canvasId = canvasId; // id of the canvas element
-    this.playerOne = new b.Player(b.PLAYER_ONE);
-    this.playerTwo = new b.Player(b.PLAYER_TWO);
+    this.playerOne = new b.Player(b.PLAYER_ONE, P1_COLOR, 0, 0);
+    this.playerTwo = new b.Player(b.PLAYER_TWO, P2_COLOR, 0, b.LEVEL_WIDTH - 1);
     this.level = new b.Level();
   };
 
