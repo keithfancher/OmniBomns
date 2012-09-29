@@ -12,6 +12,7 @@
   // player constants
   b.PLAYER_ONE = 1;
   b.PLAYER_TWO = 2;
+  b.MAX_HEALTH = 10;
 
   // number of initial objects in level
   b.NUM_WALLS = 100;

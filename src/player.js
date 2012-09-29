@@ -26,7 +26,7 @@
     this.row = 0;
     this.col = 0;
     this.playerNum = playerNum;
-    this.health = 10;
+    this.health = b.MAX_HEALTH;
     this.bomns = 10;
     this.bomnRadius = 1;
     this.invulnerable = false;
@@ -189,20 +189,30 @@
    */
   b.Player.prototype.pickUp = function(level) {
     var tile = level.tiles[this.row][this.col];
+    var pickedUp = false; // sometimes we can't pick something up! (health, etc.)
 
     if(tile instanceof b.Invuln) {
+      // TODO
     }
     else if(tile instanceof b.PowerUp) {
     }
     else if(tile instanceof b.PowerDown) {
     }
     else if(tile instanceof b.Health) {
+      if(this.health < b.MAX_HEALTH) {
+        this.health++;
+        pickedUp = true;
+      }
     }
     else if(tile instanceof b.Bomn) {
       this.bomns++;
+      pickedUp = true;
     }
 
-    level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
+    // clear out that tile if we picked up the item
+    if(pickedUp) {
+      level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
+    }
   }
 
 
