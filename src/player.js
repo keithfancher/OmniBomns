@@ -30,6 +30,17 @@
 
 
   /*
+   * Is the given row, col pair off-screen? Return true or false.
+   */
+  b.Player.prototype.destOffScreen = function(row, col) {
+    if(row >= b.LEVEL_HEIGHT || row < 0 || col >= b.LEVEL_WIDTH || col < 0) {
+      return true;
+    }
+    return false;
+  };
+
+
+  /*
    * Should this take the level? Player needs access to it here somehow...
    */
   b.Player.prototype.processKeyPress = function(keyCode, level) {
@@ -43,16 +54,16 @@
     }
 
     if(keyCode === b.P1_MOVE_RIGHT || keyCode === b.P2_MOVE_RIGHT) {
-      this.moveRight(level);
+      this.move(this.row, this.col + 1, level);
     }
     if(keyCode === b.P1_MOVE_LEFT || keyCode === b.P2_MOVE_LEFT) {
-      this.moveLeft(level);
+      this.move(this.row, this.col - 1, level);
     }
     if(keyCode === b.P1_MOVE_UP || keyCode === b.P2_MOVE_UP) {
-      this.moveUp(level);
+      this.move(this.row - 1, this.col, level);
     }
     if(keyCode === b.P1_MOVE_DOWN || keyCode === b.P2_MOVE_DOWN) {
-      this.moveDown(level);
+      this.move(this.row + 1, this.col, level);
     }
   };
 
@@ -66,81 +77,23 @@
 
 
   /*
-   * Move the player!
+   * Move the player! Takes destination row, column, and level object.
    */
-  b.Player.prototype.move = function(row, col) {
-    // TODO TODO FIXME FIXME
-    // if dest !offscreen
-    // if dest !solid
-    // if it's solid and a warp
-    // if it's solid and another player
-    // TODO: delete move* functions... too much repetition
-  };
-
-  b.Player.prototype.moveRight = function(level) {
-    // can't move off the screen
-    if(this.col < b.LEVEL_WIDTH - 1) {
-      // only move if destination is not filled with solid object
-      if(!level.tiles[this.row][this.col + 1].solid) {
-        this.col++;
+  b.Player.prototype.move = function(row, col, level) {
+    // don't move offscreen
+    if(!this.destOffScreen(row, col)) {
+      // destination is NOT solid object
+      if(!level.tiles[row][col].solid) {
+        this.row = row;
+        this.col = col;
         this.pickUp(level);
       }
       // if it *is* solid, see if it's a warp
       else {
-        if(level.tiles[this.row][this.col + 1] instanceof b.Warp) {
+        if(level.tiles[row][col] instanceof b.Warp) {
           this.warp(level);
         }
-      }
-    }
-  };
-
-  b.Player.prototype.moveLeft = function(level) {
-    // can't move off the screen
-    if(this.col > 0) {
-      // only move if destination is not filled with solid object
-      if(!level.tiles[this.row][this.col - 1].solid) {
-        this.col--;
-        this.pickUp(level);
-      }
-      // if it *is* solid, see if it's a warp
-      else {
-        if(level.tiles[this.row][this.col - 1] instanceof b.Warp) {
-          this.warp(level);
-        }
-      }
-    }
-  };
-
-  b.Player.prototype.moveUp = function(level) {
-    // can't move off the screen
-    if(this.row > 0) {
-      // only move if destination is not filled with solid object
-      if(!level.tiles[this.row - 1][this.col].solid) {
-        this.row--;
-        this.pickUp(level);
-      }
-      // if it *is* solid, see if it's a warp
-      else {
-        if(level.tiles[this.row - 1][this.col] instanceof b.Warp) {
-          this.warp(level);
-        }
-      }
-    }
-  };
-
-  b.Player.prototype.moveDown = function(level) {
-    // can't move off the screen
-    if(this.row < b.LEVEL_HEIGHT - 1) {
-      // only move if destination is not filled with solid object
-      if(!level.tiles[this.row + 1][this.col].solid) {
-        this.row++;
-        this.pickUp(level);
-      }
-      // if it *is* solid, see if it's a warp
-      else {
-        if(level.tiles[this.row + 1][this.col] instanceof b.Warp) {
-          this.warp(level);
-        }
+        // TODO: also check for other player
       }
     }
   };
