@@ -92,6 +92,7 @@
       // only move if destination is not filled with solid object
       if(!level.tiles[this.row][this.col + 1].solid) {
         this.col++;
+        this.pickUp(level);
       }
       // if it *is* solid, see if it's a warp
       else {
@@ -108,6 +109,7 @@
       // only move if destination is not filled with solid object
       if(!level.tiles[this.row][this.col - 1].solid) {
         this.col--;
+        this.pickUp(level);
       }
       // if it *is* solid, see if it's a warp
       else {
@@ -124,6 +126,7 @@
       // only move if destination is not filled with solid object
       if(!level.tiles[this.row - 1][this.col].solid) {
         this.row--;
+        this.pickUp(level);
       }
       // if it *is* solid, see if it's a warp
       else {
@@ -140,6 +143,7 @@
       // only move if destination is not filled with solid object
       if(!level.tiles[this.row + 1][this.col].solid) {
         this.row++;
+        this.pickUp(level);
       }
       // if it *is* solid, see if it's a warp
       else {
@@ -173,6 +177,16 @@
     this.row = warpRow;
     this.col = warpCol;
   };
+
+
+  /*
+   * Pick up the object, if any, that lives on the passed tile object.
+   */
+  b.Player.prototype.pickUp = function(level) {
+    level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
+
+    // TODO: do things!
+  }
 
 
   /*
