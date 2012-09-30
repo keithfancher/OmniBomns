@@ -12,13 +12,27 @@
     this.playerNum = playerNum;
     this.color = color;
     this.health = b.MAX_HEALTH;
-    this.healthElement = {}; // the HTML element in which to display health
     this.bomns = 10;
+    this.healthElement = {}; // the HTML element in which to display health
     this.bomnsElement = {}; // the HTML element in which to display bomns
     this.bomnRadius = 1;
     this.invulnerable = false;
     this.invulnerabilityTimer = 0;
     this.moved = {}; // counting on !undefined equalling true for initial run
+    this.defaultImage = {};
+    this.currentImage = {};
+    this.invulnImage = {};
+  };
+
+
+  /*
+   * Load the images for the player... takes default image and invulnerability
+   * image objects.
+   */
+  b.Player.prototype.initImages = function(defImage, invulnImage) {
+    this.defaultImage = defImage;
+    this.invulnImage = invulnImage;
+    this.currentImage = this.defaultImage;
   };
 
 
@@ -31,6 +45,7 @@
       if(Date.now() - this.invulnerabilityTimer >= 10000) {
         this.invulnerable = false;
         this.invulnerabilityTimer = 0;
+        this.currentImage = this.defaultImage;
       }
     }
     return;
@@ -173,6 +188,7 @@
       if(!this.invulnerable) {
         this.invulnerable = true;
         this.invulnerabilityTimer = Date.now();
+        this.currentImage = this.invulnImage;
         pickedUp = true;
       }
     }
@@ -224,17 +240,7 @@
    * Draw the player to the given context.
    */
   b.Player.prototype.draw = function(context) {
-    // Mult by tile size to get the right pixel coordinates, then add half
-    // because we're giving *center* coordinates for a circle... at least for
-    // now.
-    var centerX = (this.col * b.TILE_SIZE) + (b.TILE_SIZE / 2);
-    var centerY = (this.row * b.TILE_SIZE) + (b.TILE_SIZE / 2);
-
-    context.beginPath();
-    context.arc(centerX, centerY, b.TILE_SIZE / 2, 0, 2 * Math.PI, false);
-    context.fillStyle = (this.invulnerable ? 'yellow' : this.color);
-    context.fill();
-    context.stroke();
+    context.drawImage(this.currentImage, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 })(window.bomns = window.bomns || {});
