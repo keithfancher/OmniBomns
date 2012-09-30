@@ -14,6 +14,7 @@
     this.health = b.MAX_HEALTH;
     this.healthElement = {}; // the HTML element in which to display health
     this.bomns = 10;
+    this.bomnsElement = {}; // the HTML element in which to display bomns
     this.bomnRadius = 1;
     this.invulnerable = false;
     this.invulnerabilityTimer = 0;
@@ -35,14 +36,6 @@
     return;
   };
 
-  
-  /*
-   * Set the players health element so it can be updated, changed, whatever.
-   */
-  b.Player.prototype.setHealthElement = function(element) {
-    this.healthElement = element;
-  };
-
 
   /*
    * Update the health element to reflect player's... health!
@@ -53,6 +46,18 @@
       healthString += '❤ ';
     }
     this.healthElement.innerHTML = healthString.trim(); // kill final space
+  };
+
+
+  /*
+   * Update the bomns element to reflect player's... bomns!
+   */
+  b.Player.prototype.updateBomnsElement = function() {
+    var bomnsString = '';
+    for(var i = 0; i < this.bomns; i++) {
+      bomnsString += '◉ ';
+    }
+    this.bomnsElement.innerHTML = bomnsString.trim(); // kill final space
   };
 
 
@@ -189,8 +194,11 @@
       }
     }
     else if(tile instanceof b.Bomn) {
-      this.bomns++;
-      pickedUp = true;
+      if(this.bomns < b.MAX_BOMNS) {
+        this.bomns++;
+        this.updateBomnsElement(); // update HUD
+        pickedUp = true;
+      }
     }
 
     // clear out that tile if we picked up the item

@@ -39,9 +39,27 @@ div#hud {
 span#p1health {
   float: left;
   color: red;
+  font-size: 130%;
 }
 
 span#p2health {
   float: right;
   color: blue;
+  font-size: 130%;
+}
+
+div#bomns {
+  margin-top: 10px;
+}
+
+span#p1bomns {
+  float: left;
+  color: red;
+  font-size: 125%;
+}
+
+span#p2bomns {
+  float: right;
+  color: blue;
+  font-size: 125%;
 }
