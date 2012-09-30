@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>OmniBomns &mdash; The bomb, with an N!</title>
   <link href='http://fonts.googleapis.com/css?family=Trade+Winds' rel='stylesheet' />
+  <link href="lib/colorbox.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
@@ -11,6 +12,43 @@
   <div id="header">
     <h1>O m n i B o m n s <sup>alpha</sup></h1>
   </div> <!-- header -->
+
+  <!-- colorbox help text -->
+  <span id="help-link"><a class="colorbox" href="#help-text">help</a></span>
+  <div class="hidden">
+    <div id="help-text">
+      <h2>What the hell?!</h2>
+      <p>It's quite simple, really. Two players &mdash; one red and one blue
+      &mdash; out for blood. Attack your opponent with all of your might! A
+      bomn (with an n!) does 5 damage, "punching" your opponent (by running
+      into them) does 1 damage.</p>
+
+      <h2>Controls</h2>
+      <p><strong>Player 1:</strong> <br />
+      Arrow keys:&emsp;movement <br />
+      Enter:&emsp;set bomn</p>
+
+      <p><strong>Player 2:</strong> <br />
+      W,A,S,D keys:&emsp;movement <br />
+      Spacebar:&emsp;set bomn</p>
+
+      <h2>Powerups (and powerdowns)</h2>
+      <p>You can collect more bomns, health, and powerups that raise your blast
+      radius. There are also power<em>downs</em> that lower your blast radius,
+      so be careful! The yellow exclamation points are invulnerability powerups
+      &mdash; collect one and you'll be impervious to harm for 10 seconds.</p>
+
+      <h2>Warps</h2>
+      <p>Those purple doo-dads are warps. Step into one and hope for the best
+      &mdash; you'll be transported to a random part of the level. If you're
+      lucky, it won't be into the blast radius of a bomn!</p>
+
+      <h2>What else?</h2>
+      <p>That's about it! Find the code <a
+        href="https://github.com/keithfancher/OmniBomns">here</a>. Find more
+      Bomns games <a href="http://bomns.sourceforge.net/">here</a>.</p>
+    </div>
+  </div> <!-- hidden -->
 
   <div id="game">
     <canvas id="world">
@@ -31,6 +69,8 @@
     </div> <!-- bomns -->
   </div> <!-- hud -->
 
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <script src="lib/jquery.colorbox-min.js"></script>
   <script src="src/config.js"></script>
   <script src="src/util.js"></script>
   <script src="src/player.js"></script>

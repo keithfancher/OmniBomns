@@ -4,6 +4,46 @@ body {
   margin: 0;
 }
 
+a:link, a:visited, a:active {
+  color: gray;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+span#help-link {
+  font-family: 'Trade Winds', serif;
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  font-size: 110%;
+}
+
+div#help-text {
+  font-family: "Helvetica", "Arial", sans-serif;
+  padding: 20px;
+  background-color: #0d0000;
+  color: white;
+  font-size: 90%;
+  line-height: 1.4em;
+}
+
+div#help-text h2 {
+  font-family: 'Trade Winds', serif;
+  color: gray;
+}
+
+div#help-text p {
+  margin-left: 25px;
+}
+
 div#header {
   margin-top: -15px;
   margin-bottom: -18px;

@@ -1,11 +1,14 @@
-(function(b, undefined) {
+(function($, b, undefined) {
   'use strict';
 
   /*
    * Set everything up: create the canvas, create everything else, start the
-   * game loop.
+   * game loop, &c.
    */
-  (function main() {
+  $(function() {
+    // connect help text to colorbox
+    $(".colorbox").colorbox({inline: true, width: "50%"});
+
     var game = new b.Game('world');
     if(game.initCanvas()) {
       game.initListeners();
@@ -15,6 +18,6 @@
       // something better later!
       alert("OH SHIT THERE'S A HORSE IN THE HOSPITAL");
     }
-  })();
+  });
 
-})(window.bomns = window.bomns || {});
+})(jQuery, window.bomns = window.bomns || {});
