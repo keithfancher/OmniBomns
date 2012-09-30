@@ -119,6 +119,7 @@
     var warpCol;
 
     // keep looping until the destination is *not* a solid object
+    // TODO: don't land on other player... or telefrag?
     while(666) {
       warpRow = b.randomInt(0, b.LEVEL_HEIGHT - 1);
       warpCol = b.randomInt(0, b.LEVEL_WIDTH - 1);
@@ -128,10 +129,9 @@
       }
     }
 
-    // TODO: pick up the powerup/powerdown we land on
-
     this.row = warpRow;
     this.col = warpCol;
+    this.pickUp(level);
   };
 
 
