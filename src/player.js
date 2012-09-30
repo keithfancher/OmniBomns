@@ -12,6 +12,7 @@
     this.playerNum = playerNum;
     this.color = color;
     this.health = b.MAX_HEALTH;
+    this.healthElement = {}; // the HTML element in which to display health
     this.bomns = 10;
     this.bomnRadius = 1;
     this.invulnerable = false;
@@ -32,6 +33,26 @@
       }
     }
     return;
+  };
+
+  
+  /*
+   * Set the players health element so it can be updated, changed, whatever.
+   */
+  b.Player.prototype.setHealthElement = function(element) {
+    this.healthElement = element;
+  };
+
+
+  /*
+   * Update the health element to reflect player's... health!
+   */
+  b.Player.prototype.updateHealthElement = function() {
+    var healthString = '';
+    for(var i = 0; i < this.health; i++) {
+      healthString += '❤ ';
+    }
+    this.healthElement.innerHTML = healthString.trim(); // kill final space
   };
 
 
@@ -163,6 +184,7 @@
     else if(tile instanceof b.Health) {
       if(this.health < b.MAX_HEALTH) {
         this.health++;
+        this.updateHealthElement(); // update HUD
         pickedUp = true;
       }
     }
@@ -184,6 +206,7 @@
   b.Player.prototype.harm = function(damage) {
     if(!this.invulnerable) {
       this.health -= damage;
+      this.updateHealthElement(); // change health in HUD
     }
     // TODO: kill player when health <= 0
   };

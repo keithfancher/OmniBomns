@@ -104,6 +104,10 @@
     this.level.init();
     this.level.fill();
 
+    // grab DOM elements for player health
+    this.playerOne.setHealthElement(document.getElementById('p1health'));
+    this.playerTwo.setHealthElement(document.getElementById('p2health'));
+
     var that = this;
     setInterval(function() {that.mainLoop();}, 1000 / b.FPS);
   };
