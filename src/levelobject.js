@@ -8,6 +8,7 @@
     this.row = row;
     this.col = col;
     this.solid = false;
+    this.image = {};
   };
 
   /*
@@ -72,6 +73,7 @@
     this.row = row;
     this.col = col;
     this.solid = false;
+    this.image = document.getElementById("powup");
   };
   b.PowerUp.prototype = new b.LevelObject(); // inherit!
 
@@ -80,12 +82,15 @@
    */
   b.PowerUp.prototype.draw = function(context) {
     // convert from tile coords to pixel coords
+    /*
     var pixelX = this.col * b.TILE_SIZE + 4;
     var pixelY = this.row * b.TILE_SIZE - 3;
     context.textBaseline = 'top'; // text coordinates at top-left
     context.font = '15px serif';
     context.fillStyle = 'green';
     context.fillText('↑', pixelX, pixelY); // hopefully you like unicode!
+    */
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 
@@ -96,6 +101,7 @@
     this.row = row;
     this.col = col;
     this.solid = false;
+    this.image = document.getElementById("powdown");
   };
   b.PowerDown.prototype = new b.LevelObject(); // inherit!
 
@@ -104,12 +110,15 @@
    */
   b.PowerDown.prototype.draw = function(context) {
     // convert from tile coords to pixel coords
+    /*
     var pixelX = this.col * b.TILE_SIZE + 4;
     var pixelY = this.row * b.TILE_SIZE - 3;
     context.textBaseline = 'top'; // text coordinates at top-left
     context.font = '15px serif';
     context.fillStyle = 'red';
     context.fillText('↓', pixelX, pixelY); // hopefully you like unicode!
+    */
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 
