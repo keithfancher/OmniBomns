@@ -47,9 +47,11 @@
 
 
   /*
-   * Should this take the level? Player needs access to it here somehow...
+   * Should this take the level? Player needs access to it here somehow. Same
+   * with otherPlayer... we need to be able to punch our rival, as well as
+   * determine their position.
    */
-  b.Player.prototype.processKeyPress = function(keyCode, level) {
+  b.Player.prototype.processKeyPress = function(keyCode, level, otherPlayer) {
     // if the button has been pressed but not yet released, can't move!
     if(this.moved[keyCode]) {
       return;
@@ -60,16 +62,16 @@
     }
 
     if(keyCode === b.P1_MOVE_RIGHT || keyCode === b.P2_MOVE_RIGHT) {
-      this.move(this.row, this.col + 1, level);
+      this.move(this.row, this.col + 1, level, otherPlayer);
     }
     if(keyCode === b.P1_MOVE_LEFT || keyCode === b.P2_MOVE_LEFT) {
-      this.move(this.row, this.col - 1, level);
+      this.move(this.row, this.col - 1, level, otherPlayer);
     }
     if(keyCode === b.P1_MOVE_UP || keyCode === b.P2_MOVE_UP) {
-      this.move(this.row - 1, this.col, level);
+      this.move(this.row - 1, this.col, level, otherPlayer);
     }
     if(keyCode === b.P1_MOVE_DOWN || keyCode === b.P2_MOVE_DOWN) {
-      this.move(this.row + 1, this.col, level);
+      this.move(this.row + 1, this.col, level, otherPlayer);
     }
   };
 
@@ -83,13 +85,18 @@
 
 
   /*
-   * Move the player! Takes destination row, column, and level object.
+   * Move the player! Takes destination row, column, level object, and the
+   * other player object.
    */
-  b.Player.prototype.move = function(row, col, level) {
+  b.Player.prototype.move = function(row, col, level, otherPlayer) {
     // don't move offscreen
     if(!this.destOffScreen(row, col)) {
+      // check for other player before anything else
+      if(row === otherPlayer.row && col === otherPlayer.col) {
+        otherPlayer.harm(1); // "punching" the other player does 1 damage
+      }
       // destination is NOT solid object
-      if(!level.tiles[row][col].solid) {
+      else if(!level.tiles[row][col].solid) {
         this.row = row;
         this.col = col;
         this.pickUp(level);
@@ -99,7 +106,6 @@
         if(level.tiles[row][col] instanceof b.Warp) {
           this.warp(level);
         }
-        // TODO: also check for other player
       }
     }
   };
@@ -169,6 +175,17 @@
     if(pickedUp) {
       level.tiles[this.row][this.col] = new b.LevelObject(this.row, this.col);
     }
+  };
+
+
+  /*
+   * Harms the player the given amount.
+   */
+  b.Player.prototype.harm = function(damage) {
+    if(!this.invulnerable) {
+      this.health -= damage;
+    }
+    // TODO: kill player when health <= 0
   };
 
 

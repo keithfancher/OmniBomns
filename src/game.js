@@ -52,10 +52,10 @@
   b.Game.prototype.keyDownHandler = function(event) {
     // don't bother handling invalid keypresses!
     if(P1_KEYS.indexOf(event.keyCode) !== -1) {
-      this.playerOne.processKeyPress(event.keyCode, this.level);
+      this.playerOne.processKeyPress(event.keyCode, this.level, this.playerTwo);
     }
     if(P2_KEYS.indexOf(event.keyCode) !== -1) {
-      this.playerTwo.processKeyPress(event.keyCode, this.level);
+      this.playerTwo.processKeyPress(event.keyCode, this.level, this.playerOne);
     }
   };
 
