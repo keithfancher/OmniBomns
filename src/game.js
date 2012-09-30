@@ -35,9 +35,6 @@
       this.context = this.canvas.getContext('2d');
       this.canvas.width = b.SCREEN_WIDTH;
       this.canvas.height = b.SCREEN_HEIGHT;
-      this.canvas.style.position = 'absolute';
-      this.canvas.style.left = (window.innerWidth - b.SCREEN_WIDTH) * 0.5 + 'px';
-      this.canvas.style.top = (window.innerHeight - b.SCREEN_HEIGHT) * 0.5 + 'px';
       return true;
     }
     else {

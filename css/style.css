@@ -1,6 +1,12 @@
-html, body {
+body {
   background-color: #0d0000;
-  color: white;
+  color: gray;
+  margin: 0;
+}
+
+div#header {
+  margin-top: -15px;
+  margin-bottom: -18px;
 }
 
 h1 {
@@ -13,6 +19,33 @@ h1 sup {
   font-size: 40%;
 }
 
+div#game {
+  text-align: center;
+}
+
 canvas {
   background-color: #000000;
+  border: gray solid 1px;
+}
+
+div#hud {
+  width: 900px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+span#p1health {
+  float: left;
+  color: red;
+}
+
+span#p2health {
+  float: right;
+  color: blue;
+}
+
+span#tagline {
+  font-family: 'Trade Winds', serif;
 }
