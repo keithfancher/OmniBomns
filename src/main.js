@@ -7,7 +7,7 @@
    */
   $(function() {
     // connect help text to colorbox
-    $(".colorbox").colorbox({inline: true, width: "50%"});
+    $(".colorbox").colorbox({inline: true, width: "620px"});
 
     var game = new b.Game('world');
     if(game.initCanvas()) {
