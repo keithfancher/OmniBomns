@@ -2,7 +2,8 @@
   'use strict';
 
   /*
-   * LevelObject -- different kinds of objects that live in... the level! This will be overridden by the different types of object.
+   * LevelObject -- different kinds of objects that live in... the level! This
+   * will be overridden by the different types of object.
    */
   b.LevelObject = function(row, col) {
     this.row = row;
@@ -27,6 +28,7 @@
     this.row = row;
     this.col = col;
     this.solid = true;
+    this.image = document.getElementById("wall");
   };
   b.Wall.prototype = new b.LevelObject(); // inherit!
 
@@ -34,11 +36,7 @@
    * Draw the wall, yo.
    */
   b.Wall.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    var pixelX = this.col * b.TILE_SIZE;
-    var pixelY = this.row * b.TILE_SIZE;
-    context.fillStyle = 'gray';
-    context.fillRect(pixelX, pixelY, b.TILE_SIZE, b.TILE_SIZE);
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 
@@ -49,6 +47,7 @@
     this.row = row;
     this.col = col;
     this.solid = false;
+    this.image = document.getElementById("invuln");
   };
   b.Invuln.prototype = new b.LevelObject(); // inherit!
 
@@ -56,13 +55,7 @@
    * Draw the Invuln, yo.
    */
   b.Invuln.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    var pixelX = this.col * b.TILE_SIZE + 3;
-    var pixelY = this.row * b.TILE_SIZE;
-    context.textBaseline = 'top'; // text coordinates at top-left
-    context.font = '15px serif';
-    context.fillStyle = 'yellow';
-    context.fillText('!!', pixelX, pixelY);
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 
@@ -81,15 +74,6 @@
    * Draw the PowerUp, yo.
    */
   b.PowerUp.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    /*
-    var pixelX = this.col * b.TILE_SIZE + 4;
-    var pixelY = this.row * b.TILE_SIZE - 3;
-    context.textBaseline = 'top'; // text coordinates at top-left
-    context.font = '15px serif';
-    context.fillStyle = 'green';
-    context.fillText('↑', pixelX, pixelY); // hopefully you like unicode!
-    */
     context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
@@ -109,15 +93,6 @@
    * Draw the PowerDown, yo.
    */
   b.PowerDown.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    /*
-    var pixelX = this.col * b.TILE_SIZE + 4;
-    var pixelY = this.row * b.TILE_SIZE - 3;
-    context.textBaseline = 'top'; // text coordinates at top-left
-    context.font = '15px serif';
-    context.fillStyle = 'red';
-    context.fillText('↓', pixelX, pixelY); // hopefully you like unicode!
-    */
     context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
@@ -129,6 +104,7 @@
     this.row = row;
     this.col = col;
     this.solid = false;
+    this.image = document.getElementById("health");
   };
   b.Health.prototype = new b.LevelObject(); // inherit!
 
@@ -136,13 +112,7 @@
    * Draw the Health, yo.
    */
   b.Health.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    var pixelX = this.col * b.TILE_SIZE + 1;
-    var pixelY = this.row * b.TILE_SIZE;
-    context.textBaseline = 'top'; // text coordinates at top-left
-    context.font = '15px serif';
-    context.fillStyle = 'red';
-    context.fillText('❤', pixelX, pixelY); // hopefully you like unicode!
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 
@@ -153,6 +123,7 @@
     this.row = row;
     this.col = col;
     this.solid = false;
+    this.image = document.getElementById("bomn");
   };
   b.Bomn.prototype = new b.LevelObject(); // inherit!
 
@@ -160,13 +131,7 @@
    * Draw the Bomn, yo.
    */
   b.Bomn.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    var pixelX = this.col * b.TILE_SIZE + 1;
-    var pixelY = this.row * b.TILE_SIZE - 1;
-    context.textBaseline = 'top'; // text coordinates at top-left
-    context.font = '15px serif';
-    context.fillStyle = 'white';
-    context.fillText('◉', pixelX, pixelY); // hopefully you like unicode!
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 
@@ -177,6 +142,7 @@
     this.row = row;
     this.col = col;
     this.solid = true;
+    this.image = document.getElementById("warp");
   };
   b.Warp.prototype = new b.LevelObject(); // inherit!
 
@@ -184,13 +150,7 @@
    * Draw the Warp, yo.
    */
   b.Warp.prototype.draw = function(context) {
-    // convert from tile coords to pixel coords
-    var pixelX = this.col * b.TILE_SIZE + 1;
-    var pixelY = this.row * b.TILE_SIZE;
-    context.textBaseline = 'top'; // text coordinates at top-left
-    context.font = '15px serif';
-    context.fillStyle = 'purple';
-    context.fillText('✺', pixelX, pixelY); // hopefully you like unicode!
+    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 
 })(window.bomns = window.bomns || {});
