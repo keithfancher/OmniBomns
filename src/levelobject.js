@@ -119,18 +119,18 @@
   /*
    * Bomn! Inherits from LevelObject.
    */
-  b.Bomn = function(row, col) {
+  b.BomnPowerUp = function(row, col) {
     this.row = row;
     this.col = col;
     this.solid = false;
     this.image = document.getElementById("bomn");
   };
-  b.Bomn.prototype = new b.LevelObject(); // inherit!
+  b.BomnPowerUp.prototype = new b.LevelObject(); // inherit!
 
   /*
    * Draw the Bomn, yo.
    */
-  b.Bomn.prototype.draw = function(context) {
+  b.BomnPowerUp.prototype.draw = function(context) {
     context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
   };
 

@@ -114,6 +114,9 @@
     if(keyCode === b.P1_MOVE_DOWN || keyCode === b.P2_MOVE_DOWN) {
       this.move(this.row + 1, this.col, level, otherPlayer);
     }
+    if(keyCode === b.P1_BOMN || keyCode === b.P2_BOMN) {
+      level.dropBomn(this.row, this.col, this.bomnRadius);
+    }
   };
 
 
@@ -209,7 +212,7 @@
         pickedUp = true;
       }
     }
-    else if(tile instanceof b.Bomn) {
+    else if(tile instanceof b.BomnPowerUp) {
       if(this.bomns < b.MAX_BOMNS) {
         this.bomns++;
         this.updateBomnsElement(); // update HUD

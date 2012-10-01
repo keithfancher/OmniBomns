@@ -89,10 +89,12 @@
 
     this.playerOne.update();
     this.playerTwo.update();
+    this.level.update();
 
     this.level.draw(this.context);
     this.playerOne.draw(this.context);
     this.playerTwo.draw(this.context);
+    this.level.drawBomns(this.context); // bomns should be drawn last
   };
 
 

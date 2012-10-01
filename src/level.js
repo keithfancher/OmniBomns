@@ -5,7 +5,8 @@
    * The Level -- where shit happens.
    */
   b.Level = function() {
-    this.tiles = [];
+    this.tiles = []; // the tiles -- a 2D array of LevelObjects
+    this.bomns = []; // bomns currently active in level
   };
 
 
@@ -68,13 +69,56 @@
 
     // bomns
     this.insertRandomObjects(b.NUM_BOMNS, function(row, col) {
-      return new b.Bomn(row, col);
+      return new b.BomnPowerUp(row, col);
     });
 
     // warps
     this.insertRandomObjects(b.NUM_WARPS, function(row, col) {
       return new b.Warp(row, col);
     });
+  };
+
+
+  /*
+   * Drop a bomn in the level at the specified tile, with the specified radius.
+   */
+  b.Level.prototype.dropBomn = function(row, col, radius) {
+    this.bomns.push(new b.Bomn(row, col, radius));
+  };
+
+
+  /*
+   * Update the level's state -- called every frame.
+   */
+  b.Level.prototype.update = function() {
+    // first check the state of any bomns in the level
+    var bomnsToKill = []; // an array of indices of exploded bomns
+    for(var i = 0; i < this.bomns.length; i++) {
+      // blow up the bomns
+      if(this.bomns[i].shouldExplode()) {
+        this.bomns[i].explode(this.tiles);
+      }
+      // if it's already exploded, remove from array
+      if(this.bomns[i].exploded) {
+        // can't do it here -- will fuck up the loop. just track the indices
+        bomnsToKill.push(i);
+      }
+    }
+
+    // remove the exploded bomns from the array
+    for(var j = 0; j < bomnsToKill.length; j++) {
+      this.bomns.splice(bomnsToKill[j], 1);
+    }
+  };
+
+
+  /*
+   * Draw the bomns in the level to the given context.
+   */
+  b.Level.prototype.drawBomns = function(context) {
+    for(var i = 0; i < this.bomns.length; i++) {
+      this.bomns[i].draw(context);
+    }
   };
 
 
