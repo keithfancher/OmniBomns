@@ -30,7 +30,7 @@
   b.P2_BOMN = 32;
 
   // number of initial objects in level
-  b.NUM_WALLS = 100;
+  b.NUM_WALLS = 300;
   b.NUM_INVULNS = 10;
   b.NUM_POWERUPS = 30;
   b.NUM_POWERDOWNS = 30;
