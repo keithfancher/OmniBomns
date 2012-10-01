@@ -35,7 +35,6 @@
    * LOOK OUT! Wipes out the area in the blast radius. Takes the level's tiles.
    */
   b.Bomn.prototype.explode = function(tiles) {
-    console.log("explode was called!");
     this.exploding = true;
     // clear the blast radius
     var explosionSize = (2 * this.blastRadius) + 1;
