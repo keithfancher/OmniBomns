@@ -115,7 +115,11 @@
       this.move(this.row + 1, this.col, level, otherPlayer);
     }
     if(keyCode === b.P1_BOMN || keyCode === b.P2_BOMN) {
-      level.dropBomn(this.row, this.col, this.bomnRadius);
+      if(this.bomns > 0) {
+        level.dropBomn(this.row, this.col, this.bomnRadius);
+        this.bomns--;
+        this.updateBomnsElement();
+      }
     }
   };
 
