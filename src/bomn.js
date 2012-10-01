@@ -20,9 +20,12 @@
    * otherwise.
    */
   b.Bomn.prototype.shouldExplode = function() {
-    // b.BOMN_TIMER is in seconds, we want milliseconds...
-    if((Date.now() - this.timer) >= (b.BOMN_TIMER * 1000)) {
-      return true;
+    // if we're already exploding, don't explode!
+    if(!this.exploding) {
+      // b.BOMN_TIMER is in seconds, we want milliseconds...
+      if((Date.now() - this.timer) >= (b.BOMN_TIMER * 1000)) {
+        return true;
+      }
     }
     return false;
   };
@@ -32,6 +35,7 @@
    * LOOK OUT! Wipes out the area in the blast radius. Takes the level's tiles.
    */
   b.Bomn.prototype.explode = function(tiles) {
+    console.log("explode was called!");
     this.exploding = true;
     // clear the blast radius
     var explosionSize = (2 * this.blastRadius) + 1;
@@ -48,6 +52,19 @@
         }
       }
     }
+  };
+
+
+  /*
+   * Checks if the given row,col pair is within the bomn's radius. Returns true
+   * or false.
+   */
+  b.Bomn.prototype.pointInRadius = function(row, col) {
+    if(row >= (this.row - this.blastRadius) && row <= (this.row + this.blastRadius) &&
+       col >= (this.col - this.blastRadius) && col <= (this.col + this.blastRadius)) {
+      return true;
+    }
+    return false;
   };
 
 

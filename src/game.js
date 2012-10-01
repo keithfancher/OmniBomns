@@ -89,7 +89,7 @@
 
     this.playerOne.update();
     this.playerTwo.update();
-    this.level.update();
+    this.level.update(this.playerOne, this.playerTwo);
 
     this.level.draw(this.context);
     this.playerOne.draw(this.context);

@@ -90,13 +90,21 @@
   /*
    * Update the level's state -- called every frame.
    */
-  b.Level.prototype.update = function() {
+  b.Level.prototype.update = function(playerOne, playerTwo) {
     // first check the state of any bomns in the level
     var bomnsToKill = []; // an array of indices of exploded bomns
     for(var i = 0; i < this.bomns.length; i++) {
       // blow up the bomns
       if(this.bomns[i].shouldExplode()) {
         this.bomns[i].explode(this.tiles);
+
+        // check if players are in blast radius
+        if(this.bomns[i].pointInRadius(playerOne.row, playerOne.col)) {
+          playerOne.harm(b.BOMN_DAMAGE);
+        }
+        if(this.bomns[i].pointInRadius(playerTwo.row, playerTwo.col)) {
+          playerTwo.harm(b.BOMN_DAMAGE);
+        }
       }
       // if it's already exploded, remove from array
       if(this.bomns[i].exploded) {
