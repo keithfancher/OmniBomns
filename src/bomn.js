@@ -114,20 +114,17 @@
     // not exploding, draw the ticking timer
     else {
       var elapsedTime = Date.now() - this.timer;
-      var display = 0;
       if(elapsedTime <= 3000 && elapsedTime >= 2001) {
-        display = 1;
+        this.image = document.getElementById('exploding1');
       }
       if(elapsedTime <= 2000 && elapsedTime >= 1001) {
-        display = 2;
+        this.image = document.getElementById('exploding2');
       }
       if(elapsedTime <= 1000 && elapsedTime >= 0) {
-        display = 3;
+        this.image = document.getElementById('exploding3');
       }
-      context.textBaseline = 'top'; // text coordinates at top-left
-      context.font = '14px monospace';
-      context.fillStyle = 'orange';
-      context.fillText(display, this.col * b.TILE_SIZE+3, this.row * b.TILE_SIZE);
+
+      context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
     }
   };
 
