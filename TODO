@@ -6,3 +6,4 @@ TODO
 * real interface, instructions, etc.
 * sound?
 * everything else
+* online multiplayer! websockets: socket.io, ws, or WebSocket-Node...or tornado?
