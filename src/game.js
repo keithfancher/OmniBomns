@@ -95,6 +95,16 @@
     this.playerOne.draw(this.context);
     this.playerTwo.draw(this.context);
     this.level.drawBomns(this.context); // bomns should be drawn last
+
+    // If there are any active bomns in the level, change canvas border as an
+    // alert for the players (TODO: How does this affect framerate? Almost
+    // certainly better not to set every frame...)
+    if(this.level.bomns.length > 0) {
+      this.canvas.style.border = 'red solid 1px';
+    }
+    else {
+      this.canvas.style.border = 'gray solid 1px';
+    }
   };
 
 
