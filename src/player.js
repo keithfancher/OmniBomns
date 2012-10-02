@@ -22,6 +22,7 @@
     this.defaultImage = {};
     this.currentImage = {};
     this.invulnImage = {};
+    this.dead = false;
   };
 
 
@@ -237,9 +238,12 @@
   b.Player.prototype.harm = function(damage) {
     if(!this.invulnerable) {
       this.health -= damage;
+      if(this.health <= 0) {
+        this.health = 0;
+        this.dead = true;
+      }
       this.updateHealthElement(); // change health in HUD
     }
-    // TODO: kill player when health <= 0
   };
 
 

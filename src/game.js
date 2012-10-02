@@ -23,6 +23,7 @@
     this.playerOne = new b.Player(b.PLAYER_ONE, P1_COLOR, 0, 0);
     this.playerTwo = new b.Player(b.PLAYER_TWO, P2_COLOR, 0, b.LEVEL_WIDTH - 1);
     this.level = new b.Level();
+    this.gameOver = false;
   };
 
 
@@ -81,6 +82,24 @@
 
 
   /*
+   * Show the game over dialog, declaring the winner!
+   */
+  b.Game.prototype.showWinner = function() {
+    // TODO TODO TODO
+    var winnerDiv = document.getElementById('winner-message');
+    if(this.playerOne.dead && this.playerTwo.dead) {
+      winnerDiv.innerHTML = "It's a Tie!";
+    }
+    else if(this.playerOne.dead) {
+      winnerDiv.innerHTML = "Player Two Wins!";
+    }
+    else if(this.playerTwo.dead) {
+      winnerDiv.innerHTML = "Player One Wins!";
+    }
+  };
+
+
+  /*
    * Main event loop, called every frame.
    */
   b.Game.prototype.mainLoop = function() {
@@ -104,6 +123,20 @@
     }
     else {
       this.canvas.style.border = 'gray solid 1px';
+    }
+
+    // if either player is dead, it's game over... show the winner, dim the
+    // screen... but still allow them to keep playing if they feel like it!
+    if(this.playerOne.dead || this.playerTwo.dead) {
+      // only set the winner text once, not every frame
+      if(!this.gameOver) {
+        this.showWinner();
+        this.gameOver = true;
+      }
+
+      // draw a semi-transparent black rect over the screen
+      this.context.fillStyle = 'rgba(0, 0, 0, 0.85)';
+      this.context.fillRect(0, 0, b.SCREEN_WIDTH, b.SCREEN_HEIGHT);
     }
   };
 
