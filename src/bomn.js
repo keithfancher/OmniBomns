@@ -1,4 +1,4 @@
-(function(b, undefined) {
+(function(document, b, undefined) {
   'use strict';
 
   var EXPLOSION_LENGTH = 1000; // in milliseconds
@@ -128,4 +128,4 @@
     }
   };
 
-})(window.bomns = window.bomns || {});
+})(document, window.bomns = window.bomns || {});
