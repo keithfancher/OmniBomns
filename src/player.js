@@ -6,25 +6,26 @@
    * number, color, and initial row and column of the player.
    */
   b.Player = function(playerNum, color, row, col) {
-    // position is in TILES, not pixels
-    this.row = row;
+    this.row = row; // position in TILES, not pixels
     this.col = col;
     this.playerNum = playerNum;
     this.color = color;
     this.health = b.MAX_HEALTH;
     this.bomns = b.MAX_BOMNS;
-    this.healthElement = {}; // the HTML element in which to display health
-    this.bomnsElement = {}; // the HTML element in which to display bomns
     this.bomnRadius = 1;
     this.invulnerable = false;
     this.invulnerabilityTimer = 0;
-    this.moved = {}; // counting on !undefined equalling true for initial run
+    this.moved = {}; // used to track pressed keys, force players to "tap"
+    this.dead = false;
+
+    // images and DOM elements
+    this.healthElement = {}; // the HTML element in which to display health
+    this.bomnsElement = {}; // the HTML element in which to display bomns
     this.defaultImage = {};
     this.currentImage = {};
     this.invulnImage = {};
     this.healthImage = {}; // image for the HUD
     this.bomnImage = {}; // image for the HUD
-    this.dead = false;
   };
 
 
@@ -188,12 +189,13 @@
 
     this.row = warpRow;
     this.col = warpCol;
-    this.pickUp(level);
+    this.pickUp(level); // make sure to pick up whatever item we landed on
   };
 
 
   /*
-   * Pick up the object, if any, that lives on the passed tile object.
+   * Pick up the object, if any, that lives on our current position in the
+   * level.
    */
   b.Player.prototype.pickUp = function(level) {
     var tile = level.tiles[this.row][this.col];
