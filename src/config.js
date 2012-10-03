@@ -14,7 +14,7 @@
   b.PLAYER_TWO = 2;
   b.MAX_HEALTH = 10;
   b.MAX_BOMNS = 10;
-  b.BOMN_TIMER = 3; // in seconds
+  b.BOMN_TIMER = 3000; // in milliseconds
   b.BOMN_DAMAGE = 5;
 
   // player 1 keycodes (arrows + enter)

@@ -25,8 +25,7 @@
   b.Bomn.prototype.shouldExplode = function() {
     // if we're already exploding, don't explode!
     if(!this.exploding) {
-      // b.BOMN_TIMER is in seconds, we want milliseconds...
-      if((Date.now() - this.timer) >= (b.BOMN_TIMER * 1000)) {
+      if(Date.now() - this.timer >= b.BOMN_TIMER) {
         return true;
       }
     }
@@ -106,7 +105,7 @@
 
       // once we've drawn the explosion, this bomn is spent and can die...
       // after the explosion hangs out on-screen for EXPLOSION_LENGTH ms
-      if(Date.now() - this.timer >= (b.BOMN_TIMER * 1000) + EXPLOSION_LENGTH) {
+      if(Date.now() - this.timer >= b.BOMN_TIMER + EXPLOSION_LENGTH) {
         this.exploded = true;
       }
     }
