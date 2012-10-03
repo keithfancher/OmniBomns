@@ -85,7 +85,6 @@
    * Show the game over dialog, declaring the winner!
    */
   b.Game.prototype.showWinner = function() {
-    // TODO TODO TODO
     var winnerDiv = document.getElementById('winner-message');
     if(this.playerOne.dead && this.playerTwo.dead) {
       winnerDiv.innerHTML = "<h2>It's a Tie!";
