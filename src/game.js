@@ -157,8 +157,10 @@
     this.playerTwo.bomnsElement = document.getElementById('p2bomns');
 
     // load player images
-    this.playerOne.initImages(document.getElementById("p1img"), document.getElementById("p1invulnimg"));
-    this.playerTwo.initImages(document.getElementById("p2img"), document.getElementById("p2invulnimg"));
+    this.playerOne.initImages(document.getElementById("p1img"), document.getElementById("p1invulnimg"),
+                              document.getElementById("health"), document.getElementById("bomn"));
+    this.playerTwo.initImages(document.getElementById("p2img"), document.getElementById("p2invulnimg"),
+                              document.getElementById("health"), document.getElementById("bomn"));
 
     var that = this;
     setInterval(function() {that.mainLoop();}, 1000 / b.FPS);

@@ -22,6 +22,8 @@
     this.defaultImage = {};
     this.currentImage = {};
     this.invulnImage = {};
+    this.healthImage = {}; // image for the HUD
+    this.bomnImage = {}; // image for the HUD
     this.dead = false;
   };
 
@@ -30,10 +32,16 @@
    * Load the images for the player... takes default image and invulnerability
    * image objects.
    */
-  b.Player.prototype.initImages = function(defImage, invulnImage) {
+  b.Player.prototype.initImages = function(defImage, invulnImage, healthImage, bomnImage) {
     this.defaultImage = defImage;
     this.invulnImage = invulnImage;
     this.currentImage = this.defaultImage;
+    this.healthImage = healthImage;
+    this.bomnImage = bomnImage;
+
+    // make sure proper health and bomns are displayed on load
+    this.updateHealthElement();
+    this.updateBomnsElement();
   };
 
 
@@ -59,9 +67,9 @@
   b.Player.prototype.updateHealthElement = function() {
     var healthString = '';
     for(var i = 0; i < this.health; i++) {
-      healthString += '❤ ';
+      healthString += '<img src="' + this.healthImage.src + '" /> ';
     }
-    this.healthElement.innerHTML = healthString.trim(); // kill final space
+    this.healthElement.innerHTML = healthString;
   };
 
 
@@ -71,9 +79,9 @@
   b.Player.prototype.updateBomnsElement = function() {
     var bomnsString = '';
     for(var i = 0; i < this.bomns; i++) {
-      bomnsString += '◉ ';
+      bomnsString += '<img src="' + this.bomnImage.src + '" /> ';
     }
-    this.bomnsElement.innerHTML = bomnsString.trim(); // kill final space
+    this.bomnsElement.innerHTML = bomnsString;
   };
 
 
