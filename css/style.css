@@ -106,7 +106,14 @@ span#p2bomns {
 
 div#winner-message {
   font-family: 'Trade Winds', serif;
-  font-size: 120%;
   color: white;
-  margin-top: -13px;
+  margin-top: -40px;
+}
+
+div#winner-message h2 {
+  font-size: 120%;
+}
+
+div#winner-message p {
+  margin-top: -10px;
 }

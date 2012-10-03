@@ -88,14 +88,15 @@
     // TODO TODO TODO
     var winnerDiv = document.getElementById('winner-message');
     if(this.playerOne.dead && this.playerTwo.dead) {
-      winnerDiv.innerHTML = "It's a Tie!";
+      winnerDiv.innerHTML = "<h2>It's a Tie!";
     }
     else if(this.playerOne.dead) {
-      winnerDiv.innerHTML = "Player Two Wins!";
+      winnerDiv.innerHTML = "<h2>Player Two Wins!";
     }
     else if(this.playerTwo.dead) {
-      winnerDiv.innerHTML = "Player One Wins!";
+      winnerDiv.innerHTML = "<h2>Player One Wins!";
     }
+    winnerDiv.innerHTML += "</h2><p>refresh to play again</p>";
   };
 
 
