@@ -107,7 +107,9 @@ span#p2bomns {
 div#winner-message {
   font-family: 'Trade Winds', serif;
   color: white;
-  margin-top: -40px;
+  /* a bit of a hack -- makes the winner message appear in the center of the
+   * canvas: */
+  margin-top: -400px;
 }
 
 div#winner-message h2 {
