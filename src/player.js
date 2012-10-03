@@ -12,7 +12,7 @@
     this.playerNum = playerNum;
     this.color = color;
     this.health = b.MAX_HEALTH;
-    this.bomns = 10;
+    this.bomns = b.MAX_BOMNS;
     this.healthElement = {}; // the HTML element in which to display health
     this.bomnsElement = {}; // the HTML element in which to display bomns
     this.bomnRadius = 1;
