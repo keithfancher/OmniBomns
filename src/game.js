@@ -148,6 +148,8 @@
     // initialize the level
     this.level.init();
     this.level.fill();
+    this.level.clearTile(this.playerOne.row, this.playerOne.col);
+    this.level.clearTile(this.playerTwo.row, this.playerTwo.col);
 
     // grab DOM elements for player health and bomns
     this.playerOne.healthElement = document.getElementById('p1health');

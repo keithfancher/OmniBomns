@@ -80,6 +80,16 @@
 
 
   /*
+   * Wipe out the object, if any, that lives at the given row/col.
+   */
+  b.Level.prototype.clearTile = function(row, col) {
+    if(row >= 0 && row < b.LEVEL_HEIGHT && col >= 0 && col < b.LEVEL_WIDTH) {
+      this.tiles[row][col] = new b.LevelObject(row, col);
+    }
+  };
+
+
+  /*
    * Drop a bomn in the level at the specified tile, with the specified radius.
    */
   b.Level.prototype.dropBomn = function(row, col, radius) {
