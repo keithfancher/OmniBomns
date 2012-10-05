@@ -7,13 +7,13 @@
    * since we want to wait until all images have loaded to execute.
    */
   window.onload = function() {
-    // connect help text to colorbox, hide "loading" image
+    // connect help text to colorbox
     $(".colorbox").colorbox({inline: true, width: "620px"});
-    $("#loading").addClass("hidden");
 
     var game = new b.Game('world');
     if(game.initCanvas()) {
       game.initListeners();
+      $("#loading").addClass("hidden"); // hide "loading" image
       game.start();
     }
     else {
