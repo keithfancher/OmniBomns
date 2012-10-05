@@ -1,13 +1,15 @@
-(function($, b, undefined) {
+(function(window, $, b, undefined) {
   'use strict';
 
   /*
-   * Set everything up: create the canvas, create everything else, start the
-   * game loop, &c.
+   * Set everything up: create the canvas, start the game loop, &c. Note that
+   * we intentionally do *not* attach this to the jQuery document ready event,
+   * since we want to wait until all images have loaded to execute.
    */
-  $(function() {
-    // connect help text to colorbox
+  window.onload = function() {
+    // connect help text to colorbox, hide "loading" image
     $(".colorbox").colorbox({inline: true, width: "620px"});
+    $("#loading").addClass("hidden");
 
     var game = new b.Game('world');
     if(game.initCanvas()) {
@@ -18,6 +20,6 @@
       // something better later!
       alert("OH SHIT THERE'S A HORSE IN THE HOSPITAL");
     }
-  });
+  };
 
-})(jQuery, window.bomns = window.bomns || {});
+})(window, jQuery, window.bomns = window.bomns || {});

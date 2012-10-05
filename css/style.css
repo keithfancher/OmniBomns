@@ -66,6 +66,8 @@ div#game {
 canvas {
   background-color: #000000;
   border: gray solid 1px;
+  width: 900px;
+  height: 600px;
 }
 
 div#hud {
