@@ -91,7 +91,22 @@
     b.LevelObject.call(this, row, col); // call parent's constructor
     this.solid = true;
     this.image = document.getElementById("warp");
+    this.angle = 0;
   };
   b.Warp.prototype = new b.LevelObject(); // inherit!
+
+
+  /*
+   * Warp gets its own draw function so it can be animated!
+   */
+  b.Warp.prototype.draw = function(context) {
+    b.drawRotatedImage(context, this.image, this.col * b.TILE_SIZE,
+                       this.row * b.TILE_SIZE, this.angle);
+    // rotate!
+    this.angle += 0.1;
+    if(this.angle >= 2 * Math.PI) {
+      this.angle = 0;
+    }
+  };
 
 })(document, window.bomns = window.bomns || {});
