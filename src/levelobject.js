@@ -1,11 +1,11 @@
-(function(document, b, undefined) {
+define(['config', 'util'], function(c, util) {
   'use strict';
 
   /*
    * LevelObject -- base object for different items that live in... the level!
    * This will be overridden by various "child" objects below.
    */
-  b.LevelObject = function(row, col) {
+  var LevelObject = function(row, col) {
     this.row = row;
     this.col = col;
     this.solid = false; // by default, objects are *not* solid
@@ -16,9 +16,9 @@
    * Draw the object to given context. If the child object doesn't define an
    * image, just return. This gives us nice, simple level drawing code.
    */
-  b.LevelObject.prototype.draw = function(context) {
+  LevelObject.prototype.draw = function(context) {
     if(this.image) {
-      context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
+      context.drawImage(this.image, this.col * c.TILE_SIZE, this.row * c.TILE_SIZE);
     }
   };
 
@@ -26,82 +26,82 @@
   /*
    * Wall! Inherits from LevelObject.
    */
-  b.Wall = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var Wall = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.solid = true;
     this.image = document.getElementById("wall");
   };
-  b.Wall.prototype = new b.LevelObject(); // inherit!
+  Wall.prototype = new LevelObject(); // inherit!
 
 
   /*
    * Invuln(erability)! Inherits from LevelObject.
    */
-  b.Invuln = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var Invuln = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.image = document.getElementById("invuln");
   };
-  b.Invuln.prototype = new b.LevelObject(); // inherit!
+  Invuln.prototype = new LevelObject(); // inherit!
 
 
   /*
    * PowerUp! Inherits from LevelObject.
    */
-  b.PowerUp = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var PowerUp = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.image = document.getElementById("powup");
   };
-  b.PowerUp.prototype = new b.LevelObject(); // inherit!
+  PowerUp.prototype = new LevelObject(); // inherit!
 
 
   /*
    * PowerDown! Inherits from LevelObject.
    */
-  b.PowerDown = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var PowerDown = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.image = document.getElementById("powdown");
   };
-  b.PowerDown.prototype = new b.LevelObject(); // inherit!
+  PowerDown.prototype = new LevelObject(); // inherit!
 
 
   /*
    * Health! Inherits from LevelObject.
    */
-  b.Health = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var Health = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.image = document.getElementById("health");
   };
-  b.Health.prototype = new b.LevelObject(); // inherit!
+  Health.prototype = new LevelObject(); // inherit!
 
 
   /*
    * Bomn! Inherits from LevelObject.
    */
-  b.BomnPowerUp = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var BomnPowerUp = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.image = document.getElementById("bomn");
   };
-  b.BomnPowerUp.prototype = new b.LevelObject(); // inherit!
+  BomnPowerUp.prototype = new LevelObject(); // inherit!
 
 
   /*
    * Warp! Inherits from LevelObject.
    */
-  b.Warp = function(row, col) {
-    b.LevelObject.call(this, row, col); // call parent's constructor
+  var Warp = function(row, col) {
+    LevelObject.call(this, row, col); // call parent's constructor
     this.solid = true;
     this.image = document.getElementById("warp");
     this.angle = 0;
   };
-  b.Warp.prototype = new b.LevelObject(); // inherit!
+  Warp.prototype = new LevelObject(); // inherit!
 
 
   /*
    * Warp gets its own draw function so it can be animated!
    */
-  b.Warp.prototype.draw = function(context) {
-    b.drawRotatedImage(context, this.image, this.col * b.TILE_SIZE,
-                       this.row * b.TILE_SIZE, this.angle);
+  Warp.prototype.draw = function(context) {
+    util.drawRotatedImage(context, this.image, this.col * c.TILE_SIZE,
+                       this.row * c.TILE_SIZE, this.angle);
     // rotate!
     this.angle += 0.1;
     if(this.angle >= 2 * Math.PI) {
@@ -109,4 +109,17 @@
     }
   };
 
-})(document, window.bomns = window.bomns || {});
+
+  // wrap and "export" the level objects
+  var objectWrapper = {};
+  objectWrapper.LevelObject = LevelObject;
+  objectWrapper.Wall = Wall;
+  objectWrapper.Invuln = Invuln;
+  objectWrapper.PowerUp = PowerUp;
+  objectWrapper.PowerDown = PowerDown;
+  objectWrapper.Health = Health;
+  objectWrapper.BomnPowerUp = BomnPowerUp;
+  objectWrapper.Warp = Warp;
+  return objectWrapper;
+
+});

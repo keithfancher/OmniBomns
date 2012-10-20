@@ -1,10 +1,10 @@
-(function(window, document, b, undefined) {
+define(['config', 'level', 'player'], function(c, Level, Player) {
   'use strict';
 
   // arrays of the players' keybindings, useful for telling which player to
   // route keypresses to
-  var P1_KEYS = [b.P1_MOVE_RIGHT, b.P1_MOVE_LEFT, b.P1_MOVE_UP, b.P1_MOVE_DOWN, b.P1_BOMN];
-  var P2_KEYS = [b.P2_MOVE_RIGHT, b.P2_MOVE_LEFT, b.P2_MOVE_UP, b.P2_MOVE_DOWN, b.P2_BOMN];
+  var P1_KEYS = [c.P1_MOVE_RIGHT, c.P1_MOVE_LEFT, c.P1_MOVE_UP, c.P1_MOVE_DOWN, c.P1_BOMN];
+  var P2_KEYS = [c.P2_MOVE_RIGHT, c.P2_MOVE_LEFT, c.P2_MOVE_UP, c.P2_MOVE_DOWN, c.P2_BOMN];
 
   // player colors
   var P1_COLOR = 'red';
@@ -16,13 +16,13 @@
    * state, logic, &c. Pass it the id of your canvas, run its init() functions,
    * start() it up, and stand back!
    */
-  b.Game = function(canvasId) {
+  var Game = function(canvasId) {
     this.canvas = {};
     this.context = {};
     this.canvasId = canvasId; // id of the canvas element
-    this.playerOne = new b.Player(b.PLAYER_ONE, P1_COLOR, 0, 0);
-    this.playerTwo = new b.Player(b.PLAYER_TWO, P2_COLOR, 0, b.LEVEL_WIDTH - 1);
-    this.level = new b.Level();
+    this.playerOne = new Player(c.PLAYER_ONE, P1_COLOR, 0, 0);
+    this.playerTwo = new Player(c.PLAYER_TWO, P2_COLOR, 0, c.LEVEL_WIDTH - 1);
+    this.level = new Level();
     this.gameOver = false;
   };
 
@@ -30,12 +30,12 @@
   /*
    * Set up canvas and context. Returns true if successful, false otherwise.
    */
-  b.Game.prototype.initCanvas = function() {
+  Game.prototype.initCanvas = function() {
     this.canvas = document.getElementById(this.canvasId);
     if(this.canvas && this.canvas.getContext) {
       this.context = this.canvas.getContext('2d');
-      this.canvas.width = b.SCREEN_WIDTH;
-      this.canvas.height = b.SCREEN_HEIGHT;
+      this.canvas.width = c.SCREEN_WIDTH;
+      this.canvas.height = c.SCREEN_HEIGHT;
       return true;
     }
     else {
@@ -47,7 +47,7 @@
   /*
    * Callback to handle key press.
    */
-  b.Game.prototype.keyDownHandler = function(event) {
+  Game.prototype.keyDownHandler = function(event) {
     // don't bother handling invalid keypresses!
     if(P1_KEYS.indexOf(event.keyCode) !== -1) {
       this.playerOne.processKeyPress(event.keyCode, this.level, this.playerTwo);
@@ -61,7 +61,7 @@
   /*
    * Callback to handle key release.
    */
-  b.Game.prototype.keyUpHandler = function(event) {
+  Game.prototype.keyUpHandler = function(event) {
     if(P1_KEYS.indexOf(event.keyCode) !== -1) {
       this.playerOne.processKeyRelease(event.keyCode);
     }
@@ -74,7 +74,7 @@
   /*
    * Set up event listener(s).
    */
-  b.Game.prototype.initListeners = function() {
+  Game.prototype.initListeners = function() {
     var that = this;
     document.addEventListener('keydown', function(event){that.keyDownHandler(event);});
     document.addEventListener('keyup', function(event){that.keyUpHandler(event);});
@@ -84,7 +84,7 @@
   /*
    * Show the game over dialog, declaring the winner!
    */
-  b.Game.prototype.showWinner = function() {
+  Game.prototype.showWinner = function() {
     var winnerDiv = document.getElementById('winner-message');
     if(this.playerOne.dead && this.playerTwo.dead) {
       winnerDiv.innerHTML = "<h2>It's a Tie!";
@@ -102,9 +102,9 @@
   /*
    * Main event loop, called every frame.
    */
-  b.Game.prototype.mainLoop = function() {
+  Game.prototype.mainLoop = function() {
     this.context.fillStyle = 'black';
-    this.context.fillRect(0, 0, b.SCREEN_WIDTH, b.SCREEN_HEIGHT);
+    this.context.fillRect(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT);
 
     this.playerOne.update();
     this.playerTwo.update();
@@ -136,7 +136,7 @@
 
       // draw a semi-transparent black rect over the screen
       this.context.fillStyle = 'rgba(0, 0, 0, 0.85)';
-      this.context.fillRect(0, 0, b.SCREEN_WIDTH, b.SCREEN_HEIGHT);
+      this.context.fillRect(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT);
     }
   };
 
@@ -144,7 +144,7 @@
   /*
    * Set the magic in motion!
    */
-  b.Game.prototype.start = function() {
+  Game.prototype.start = function() {
     // initialize the level
     this.level.init();
     this.level.fill();
@@ -164,7 +164,11 @@
                               document.getElementById("health"), document.getElementById("bomn"));
 
     var that = this;
-    setInterval(function() {that.mainLoop();}, 1000 / b.FPS);
+    setInterval(function() {that.mainLoop();}, 1000 / c.FPS);
   };
 
-})(window, document, window.bomns = window.bomns || {});
+
+  // "export" the Game object
+  return Game;
+
+});

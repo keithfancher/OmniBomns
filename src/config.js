@@ -1,43 +1,48 @@
-(function(b, undefined) {
+define(function() {
   'use strict';
 
+  var c = {};
+
   // some useful "constants"
-  b.SCREEN_WIDTH = 900; // in pixels
-  b.SCREEN_HEIGHT = 600; // in pixels
-  b.TILE_SIZE = 15;
-  b.LEVEL_WIDTH = b.SCREEN_WIDTH / b.TILE_SIZE; // in tiles
-  b.LEVEL_HEIGHT = b.SCREEN_HEIGHT / b.TILE_SIZE; // in tiles
-  b.FPS = 60;
+  c.SCREEN_WIDTH = 900; // in pixels
+  c.SCREEN_HEIGHT = 600; // in pixels
+  c.TILE_SIZE = 15;
+  c.LEVEL_WIDTH = c.SCREEN_WIDTH / c.TILE_SIZE; // in tiles
+  c.LEVEL_HEIGHT = c.SCREEN_HEIGHT / c.TILE_SIZE; // in tiles
+  c.FPS = 60;
 
   // player constants
-  b.PLAYER_ONE = 1;
-  b.PLAYER_TWO = 2;
-  b.MAX_HEALTH = 10;
-  b.MAX_BOMNS = 10;
-  b.BOMN_TIMER = 3000; // in milliseconds
-  b.BOMN_DAMAGE = 5;
+  c.PLAYER_ONE = 1;
+  c.PLAYER_TWO = 2;
+  c.MAX_HEALTH = 10;
+  c.MAX_BOMNS = 10;
+  c.BOMN_TIMER = 3000; // in milliseconds
+  c.BOMN_DAMAGE = 5;
 
   // player 1 keycodes (arrows + enter)
-  b.P1_MOVE_RIGHT = 39;
-  b.P1_MOVE_LEFT = 37;
-  b.P1_MOVE_UP = 38;
-  b.P1_MOVE_DOWN = 40;
-  b.P1_BOMN = 13;
+  c.P1_MOVE_RIGHT = 39;
+  c.P1_MOVE_LEFT = 37;
+  c.P1_MOVE_UP = 38;
+  c.P1_MOVE_DOWN = 40;
+  c.P1_BOMN = 13;
 
   // player 2 keycodes (wasd + spacebar)
-  b.P2_MOVE_RIGHT = 68;
-  b.P2_MOVE_LEFT = 65;
-  b.P2_MOVE_UP = 87;
-  b.P2_MOVE_DOWN = 83;
-  b.P2_BOMN = 32;
+  c.P2_MOVE_RIGHT = 68;
+  c.P2_MOVE_LEFT = 65;
+  c.P2_MOVE_UP = 87;
+  c.P2_MOVE_DOWN = 83;
+  c.P2_BOMN = 32;
 
   // number of initial objects in level
-  b.NUM_WALLS = 300;
-  b.NUM_INVULNS = 10;
-  b.NUM_POWERUPS = 30;
-  b.NUM_POWERDOWNS = 30;
-  b.NUM_HEALTH = 30;
-  b.NUM_BOMNS = 20;
-  b.NUM_WARPS = 3;
+  c.NUM_WALLS = 300;
+  c.NUM_INVULNS = 10;
+  c.NUM_POWERUPS = 30;
+  c.NUM_POWERDOWNS = 30;
+  c.NUM_HEALTH = 30;
+  c.NUM_BOMNS = 20;
+  c.NUM_WARPS = 3;
 
-})(window.bomns = window.bomns || {});
+  // "export" config options
+  return c;
+
+});

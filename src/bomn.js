@@ -1,4 +1,4 @@
-(function(document, b, undefined) {
+define(['config', 'levelobject'], function(c, obj) {
   'use strict';
 
   var EXPLOSION_LENGTH = 1000; // in milliseconds
@@ -6,7 +6,7 @@
   /*
    * The Bomn object -- it'll blow you up!
    */
-  b.Bomn = function(row, col, radius) {
+  var Bomn = function(row, col, radius) {
     this.row = row;
     this.col = col;
     this.timer = Date.now();
@@ -22,10 +22,10 @@
    * Checks the bomn's timer and returns true if it should explode, false
    * otherwise.
    */
-  b.Bomn.prototype.shouldExplode = function() {
+  Bomn.prototype.shouldExplode = function() {
     // if we're already exploding, don't explode!
     if(!this.exploding) {
-      if(Date.now() - this.timer >= b.BOMN_TIMER) {
+      if(Date.now() - this.timer >= c.BOMN_TIMER) {
         return true;
       }
     }
@@ -37,7 +37,7 @@
    * LOOK OUT! Wipes out the area in the blast radius. Takes the level's tiles
    * as a parameter.
    */
-  b.Bomn.prototype.explode = function(tiles) {
+  Bomn.prototype.explode = function(tiles) {
     this.exploding = true;
     this.explosionTimer = Date.now();
 
@@ -49,10 +49,10 @@
     for(var row = startRow; row < startRow + explosionSize; row++) {
       for(var col = startCol; col < startCol + explosionSize; col++) {
         // check if it's onscreen, then clear
-        if(row >= 0 && row < b.LEVEL_HEIGHT && col >= 0 && col < b.LEVEL_WIDTH) {
+        if(row >= 0 && row < c.LEVEL_HEIGHT && col >= 0 && col < c.LEVEL_WIDTH) {
           // warps are indestructable!
-          if(!(tiles[row][col] instanceof b.Warp)) {
-            tiles[row][col] = new b.LevelObject(row, col);
+          if(!(tiles[row][col] instanceof obj.Warp)) {
+            tiles[row][col] = new obj.LevelObject(row, col);
           }
         }
       }
@@ -64,7 +64,7 @@
    * Checks if the given row,col pair is within the bomn's radius. Returns true
    * or false.
    */
-  b.Bomn.prototype.pointInRadius = function(row, col) {
+  Bomn.prototype.pointInRadius = function(row, col) {
     if(row >= (this.row - this.blastRadius) && row <= (this.row + this.blastRadius) &&
        col >= (this.col - this.blastRadius) && col <= (this.col + this.blastRadius)) {
       return true;
@@ -76,7 +76,7 @@
   /*
    * Draw bomn explosion to given context.
    */
-  b.Bomn.prototype.drawExplosion = function(context) {
+  Bomn.prototype.drawExplosion = function(context) {
     // convert our explosion "radius" into the square that it actually is
     var explosionSize = (2 * this.blastRadius) + 1;
     var startRow = this.row - this.blastRadius;
@@ -85,8 +85,8 @@
     for(var row = startRow; row < startRow + explosionSize; row++) {
       for(var col = startCol; col < startCol + explosionSize; col++) {
         // adjust row,col values to pixel values
-        var pixelX = col * b.TILE_SIZE;
-        var pixelY = row * b.TILE_SIZE;
+        var pixelX = col * c.TILE_SIZE;
+        var pixelY = row * c.TILE_SIZE;
 
         // The alpha value for the explosion adjusts as time passes to fade
         // the explosion away. Over the course of EXPLOSION_LENGTH, the alpha
@@ -97,13 +97,13 @@
         if(alphaValue < 0) { alphaValue = 0; }
 
         context.fillStyle = 'rgba(255, 165, 0, ' + alphaValue + ')';
-        context.fillRect(pixelX, pixelY, b.TILE_SIZE, b.TILE_SIZE);
+        context.fillRect(pixelX, pixelY, c.TILE_SIZE, c.TILE_SIZE);
       }
     }
 
     // once we've drawn the explosion, this bomn is spent and can die...
     // after the explosion hangs out on-screen for EXPLOSION_LENGTH ms
-    if(Date.now() - this.timer >= b.BOMN_TIMER + EXPLOSION_LENGTH) {
+    if(Date.now() - this.timer >= c.BOMN_TIMER + EXPLOSION_LENGTH) {
       this.exploded = true;
     }
   };
@@ -112,7 +112,7 @@
   /*
    * Draw bomn countdown timer to given context.
    */
-  b.Bomn.prototype.drawCountdown = function(context) {
+  Bomn.prototype.drawCountdown = function(context) {
     var elapsed = Date.now() - this.timer;
     if(elapsed <= 3000 && elapsed >= 2001) {
       this.image = document.getElementById('exploding1');
@@ -124,7 +124,7 @@
       this.image = document.getElementById('exploding3');
     }
 
-    context.drawImage(this.image, this.col * b.TILE_SIZE, this.row * b.TILE_SIZE);
+    context.drawImage(this.image, this.col * c.TILE_SIZE, this.row * c.TILE_SIZE);
   };
 
 
@@ -132,7 +132,7 @@
    * Draw the bomn to the given context. Or if the bomn is exploding, draw the
    * explosion.
    */
-  b.Bomn.prototype.draw = function(context) {
+  Bomn.prototype.draw = function(context) {
     if(this.exploding) {
       this.drawExplosion(context);
     }
@@ -141,4 +141,8 @@
     }
   };
 
-})(document, window.bomns = window.bomns || {});
+
+  // "export" Bomn object
+  return Bomn;
+
+});

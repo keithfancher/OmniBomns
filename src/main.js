@@ -1,4 +1,4 @@
-(function(window, $, b, undefined) {
+require(['game', 'jquery', 'lib/jquery.colorbox'], function(Game, $) {
   'use strict';
 
   /*
@@ -10,16 +10,15 @@
     // connect help text to colorbox
     $(".colorbox").colorbox({inline: true, width: "620px"});
 
-    var game = new b.Game('world');
+    var game = new Game('world');
     if(game.initCanvas()) {
       game.initListeners();
       $("#loading").addClass("hidden"); // hide "loading" image
       game.start();
     }
     else {
-      // something better later!
-      alert("OH SHIT THERE'S A HORSE IN THE HOSPITAL");
+      // TODO: does anything actually need to go here?
     }
   };
 
-})(window, jQuery, window.bomns = window.bomns || {});
+});

@@ -1,10 +1,10 @@
-(function(b, undefined) {
+define(['bomn', 'config', 'levelobject', 'util'], function(Bomn, c, obj, util) {
   'use strict';
 
   /*
    * The Level -- where shit happens.
    */
-  b.Level = function() {
+  var Level = function() {
     this.tiles = []; // the tiles -- a 2D array of LevelObjects
     this.bomns = []; // bomns currently active in level
   };
@@ -13,11 +13,11 @@
   /*
    * Initialize empty tiles in the level.
    */
-  b.Level.prototype.init = function() {
-    for(var row = 0; row < b.LEVEL_HEIGHT; row++) {
+  Level.prototype.init = function() {
+    for(var row = 0; row < c.LEVEL_HEIGHT; row++) {
       var newRow = [];
-      for(var col = 0; col < b.LEVEL_WIDTH; col++) {
-        newRow.push(new b.LevelObject(row, col));
+      for(var col = 0; col < c.LEVEL_WIDTH; col++) {
+        newRow.push(new obj.LevelObject(row, col));
       }
       this.tiles.push(newRow);
     }
@@ -29,10 +29,10 @@
    * and column and return a new instance of whatever object you want to
    * insert.
    */
-  b.Level.prototype.insertRandomObjects = function(num, func) {
+  Level.prototype.insertRandomObjects = function(num, func) {
     for(var i = 0; i < num; i++) {
-      var row = b.randomInt(0, b.LEVEL_HEIGHT - 1);
-      var col = b.randomInt(0, b.LEVEL_WIDTH - 1);
+      var row = util.randomInt(0, c.LEVEL_HEIGHT - 1);
+      var col = util.randomInt(0, c.LEVEL_WIDTH - 1);
       this.tiles[row][col] = func(row, col);
     }
   };
@@ -41,40 +41,40 @@
   /*
    * Fill the level with objects.
    */
-  b.Level.prototype.fill = function() {
+  Level.prototype.fill = function() {
     // insert walls
-    this.insertRandomObjects(b.NUM_WALLS, function(row, col) {
-      return new b.Wall(row, col);
+    this.insertRandomObjects(c.NUM_WALLS, function(row, col) {
+      return new obj.Wall(row, col);
     });
 
     // insert invulnerabilities
-    this.insertRandomObjects(b.NUM_INVULNS, function(row, col) {
-      return new b.Invuln(row, col);
+    this.insertRandomObjects(c.NUM_INVULNS, function(row, col) {
+      return new obj.Invuln(row, col);
     });
 
     // powerups
-    this.insertRandomObjects(b.NUM_POWERUPS, function(row, col) {
-      return new b.PowerUp(row, col);
+    this.insertRandomObjects(c.NUM_POWERUPS, function(row, col) {
+      return new obj.PowerUp(row, col);
     });
 
     // powerdowns
-    this.insertRandomObjects(b.NUM_POWERDOWNS, function(row, col) {
-      return new b.PowerDown(row, col);
+    this.insertRandomObjects(c.NUM_POWERDOWNS, function(row, col) {
+      return new obj.PowerDown(row, col);
     });
 
     // health
-    this.insertRandomObjects(b.NUM_HEALTH, function(row, col) {
-      return new b.Health(row, col);
+    this.insertRandomObjects(c.NUM_HEALTH, function(row, col) {
+      return new obj.Health(row, col);
     });
 
     // bomns
-    this.insertRandomObjects(b.NUM_BOMNS, function(row, col) {
-      return new b.BomnPowerUp(row, col);
+    this.insertRandomObjects(c.NUM_BOMNS, function(row, col) {
+      return new obj.BomnPowerUp(row, col);
     });
 
     // warps
-    this.insertRandomObjects(b.NUM_WARPS, function(row, col) {
-      return new b.Warp(row, col);
+    this.insertRandomObjects(c.NUM_WARPS, function(row, col) {
+      return new obj.Warp(row, col);
     });
   };
 
@@ -82,9 +82,9 @@
   /*
    * Wipe out the object, if any, that lives at the given row/col.
    */
-  b.Level.prototype.clearTile = function(row, col) {
-    if(row >= 0 && row < b.LEVEL_HEIGHT && col >= 0 && col < b.LEVEL_WIDTH) {
-      this.tiles[row][col] = new b.LevelObject(row, col);
+  Level.prototype.clearTile = function(row, col) {
+    if(row >= 0 && row < c.LEVEL_HEIGHT && col >= 0 && col < c.LEVEL_WIDTH) {
+      this.tiles[row][col] = new obj.LevelObject(row, col);
     }
   };
 
@@ -92,15 +92,15 @@
   /*
    * Drop a bomn in the level at the specified tile, with the specified radius.
    */
-  b.Level.prototype.dropBomn = function(row, col, radius) {
-    this.bomns.push(new b.Bomn(row, col, radius));
+  Level.prototype.dropBomn = function(row, col, radius) {
+    this.bomns.push(new Bomn(row, col, radius));
   };
 
 
   /*
    * Update the level's state -- called every frame.
    */
-  b.Level.prototype.update = function(playerOne, playerTwo) {
+  Level.prototype.update = function(playerOne, playerTwo) {
     // first check the state of any bomns in the level
     var bomnsToKill = []; // an array of indices of exploded bomns
     for(var i = 0; i < this.bomns.length; i++) {
@@ -110,10 +110,10 @@
 
         // check if players are in blast radius
         if(this.bomns[i].pointInRadius(playerOne.row, playerOne.col)) {
-          playerOne.harm(b.BOMN_DAMAGE);
+          playerOne.harm(c.BOMN_DAMAGE);
         }
         if(this.bomns[i].pointInRadius(playerTwo.row, playerTwo.col)) {
-          playerTwo.harm(b.BOMN_DAMAGE);
+          playerTwo.harm(c.BOMN_DAMAGE);
         }
       }
       // if it's already exploded, remove from array
@@ -133,7 +133,7 @@
   /*
    * Draw the bomns in the level to the given context.
    */
-  b.Level.prototype.drawBomns = function(context) {
+  Level.prototype.drawBomns = function(context) {
     for(var i = 0; i < this.bomns.length; i++) {
       this.bomns[i].draw(context);
     }
@@ -143,12 +143,16 @@
   /*
    * Draw the level!
    */
-  b.Level.prototype.draw = function(context) {
-    for(var row = 0; row < b.LEVEL_HEIGHT; row++) {
-      for(var col = 0; col < b.LEVEL_WIDTH; col++) {
+  Level.prototype.draw = function(context) {
+    for(var row = 0; row < c.LEVEL_HEIGHT; row++) {
+      for(var col = 0; col < c.LEVEL_WIDTH; col++) {
         this.tiles[row][col].draw(context);
       }
     }
   };
 
-})(window.bomns = window.bomns || {});
+
+  // "export" Level object
+  return Level;
+
+});

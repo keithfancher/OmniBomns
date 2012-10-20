@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>OmniBomns &mdash; The bomb, with an N!</title>
   <link href='http://fonts.googleapis.com/css?family=Trade+Winds' rel='stylesheet' />
-  <link href="lib/colorbox.css" rel="stylesheet" />
+  <link href="src/lib/colorbox.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
@@ -72,7 +72,8 @@
   <div id="game">
     <canvas id="world">
       Sorry, your browser doesn't support canvas. Maybe try a recent version of
-      <a href="http://www.google.com/chrome">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>?
+      <a href="http://www.google.com/chrome">Chrome</a> or
+      <a href="http://www.mozilla.org/en-US/firefox/">Firefox</a>?
     </canvas>
   </div> <!-- game -->
 
@@ -89,19 +90,10 @@
     <div id="winner-message">
     </div>
     <div id="loading">
-      <img src="lib/images/loading.gif" />
+      <img src="src/lib/images/loading.gif" />
     </div> <!-- loading -->
   </div> <!-- hud -->
 
-  <script src="lib/jquery-1.8.2.min.js"></script>
-  <script src="lib/jquery.colorbox-min.js"></script>
-  <script src="src/config.js"></script>
-  <script src="src/util.js"></script>
-  <script src="src/player.js"></script>
-  <script src="src/levelobject.js"></script>
-  <script src="src/bomn.js"></script>
-  <script src="src/level.js"></script>
-  <script src="src/game.js"></script>
-  <script src="src/main.js"></script>
+  <script data-main="src/main" src="src/lib/require-jquery.js"></script>
 </body>
 </html>
