@@ -4,6 +4,10 @@ OMNIBOMNS
 Bomns: the tap-happy, set-your-hair-on-fire, blow-up-your-friends, deathmatch
 classic. In your browser!
 
+Play it live *right now* by visiting::
+
+  http://keithfancher.github.com/OmniBomns/
+
 
 WHAT THE HELL?
 --------------
