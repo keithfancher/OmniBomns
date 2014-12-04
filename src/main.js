@@ -30,7 +30,7 @@ require(['game', 'jquery', 'lib/jquery.colorbox'], function(Game, $) {
       game.start();
     }
     else {
-      // TODO: does anything actually need to go here?
+      console.log("Failed to initialize canvas?! :'(");
     }
   };
 
