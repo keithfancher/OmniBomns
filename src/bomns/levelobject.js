@@ -1,4 +1,4 @@
-define(['config', 'util'], function(c, util) {
+define(['bomns/config', 'bomns/util'], function(c, util) {
   'use strict';
 
   /*

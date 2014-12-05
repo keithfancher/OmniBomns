@@ -1,4 +1,4 @@
-define(['bomn', 'config', 'levelobject', 'util'], function(Bomn, c, obj, util) {
+define(['bomns/bomn', 'bomns/config', 'bomns/levelobject', 'bomns/util'], function(Bomn, c, obj, util) {
   'use strict';
 
   /*

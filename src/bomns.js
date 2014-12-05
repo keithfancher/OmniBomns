@@ -1,4 +1,17 @@
-require(['game', 'jquery', 'lib/jquery.colorbox'], function(Game, $) {
+require.config({
+  baseUrl: 'src/lib',
+
+  paths: {
+    bomns: '../bomns'
+  },
+
+  shim: {
+    'jquery.colorbox': ['jquery']
+  }
+});
+
+
+require(['bomns/game', 'jquery', 'jquery.colorbox'], function(Game, $) {
   'use strict';
 
   /*

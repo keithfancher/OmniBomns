@@ -1,4 +1,4 @@
-define(['config', 'level', 'player'], function(c, Level, Player) {
+define(['bomns/config', 'bomns/level', 'bomns/player'], function(c, Level, Player) {
   'use strict';
 
   // arrays of the players' keybindings, useful for telling which player to

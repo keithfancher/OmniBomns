@@ -1,4 +1,4 @@
-define(['config', 'levelobject'], function(c, obj) {
+define(['bomns/config', 'bomns/levelobject'], function(c, obj) {
   'use strict';
 
   var EXPLOSION_LENGTH = 1000; // in milliseconds
