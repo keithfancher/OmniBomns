@@ -59,6 +59,10 @@ h1 sup {
   font-size: 40%;
 }
 
+div#loading {
+  position: relative; /* fixes z-index issues */
+}
+
 div#game {
   text-align: center;
 }
@@ -68,6 +72,7 @@ canvas {
   border: gray solid 1px;
   width: 900px;
   height: 600px;
+  position: relative; /* fixes z-index issues */
 }
 
 div#hud {
@@ -112,6 +117,7 @@ div#winner-message {
   /* a bit of a hack -- makes the winner message appear in the center of the
    * canvas: */
   margin-top: -400px;
+  position: relative; /* fixes z-index issues */
 }
 
 div#winner-message h2 {
