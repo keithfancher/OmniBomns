@@ -1,6 +1,7 @@
 JSHINT_OPTIONS="/*jshint browser:true*/"
-SOURCES=src/config.js src/util.js src/player.js src/levelobject.js \
-				src/bomn.js src/level.js src/game.js src/main.js
+SOURCES=src/bomns/config.js src/bomns/util.js src/bomns/player.js \
+		src/bomns/levelobject.js src/bomns/bomn.js src/bomns/level.js \
+		src/bomns/game.js src/bomns.js
 CONCAT=bin/concat.js
 MIN=bin/min.js
 
